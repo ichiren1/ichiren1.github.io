@@ -15,8 +15,75 @@
 
     <title>Ichiren1.github.io by ichiren1</title>
   </head>
-
-  <body>
+    <script type="text/javascript">
+        var textArray = [];
+        var flag = 0;
+        var selectedMode;
+        function addForm(f) {
+            save(f);
+            var n = f.elements.length - 1;
+            n = n < 10 ? "0" + n : n;
+            f.innerHTML += n + "：<input name='name"+ n +"'><br>";
+            flag = 0;
+            set(f);
+        }
+        function deleteForm(f) {
+            var n = f.elements.length - 2;
+            save(f);
+            if(n!=1){
+                f.innerHTML = "<input type='button' value='Form Add ' onclick='addForm(this.form)'> <input name='name' type='button' value='Form Delete ' onclick='deleteForm(this.form)'><br>" 
+                for (var i = 1; i < n; i++) {
+                    i = i < 10 ? "0" + i : i;
+                    f.innerHTML +=  i + "：<input name='name"+ i +"'><br>";
+                }
+            }
+            textArray.push("");
+            flag = 1;
+            set(f);
+        }
+        function save(f){
+            var n = f.elements.length-2;
+            var a = f.elements[2].value;
+            textArray.length = 0;
+            for (var i = 2; i <= n+1; i++) {
+                textArray.push(f.elements[i].value);
+            };
+        }
+        function set(f){
+            var n = f.elements.length-2;
+            if(flag == 1) n++;
+            for (var i = 2; i <= n; i++) {
+                f.elements[i].value = textArray[i-2];
+            }
+        }
+        function shuffle(f){
+            save(f);
+            if(selectModeForm.selectModeSelect.value == "m-t-m"){
+                var n = f.elements.length-2;
+                for(var i = 0; i< textArray.length; i++){
+                    var r=Math.floor((textArray.length-1)*Math.random());
+                    var tmp=textArray[i];
+                    textArray[i]=textArray[r];
+                    textArray[r]=tmp;
+                }
+                var test=[];
+                for(var i=0;i<textArray.length;i++){
+                    test+=textArray[i];
+                    test+=",";
+                }
+                flag=1;
+                set(f);
+            }
+            if(selectModeForm.selectModeSelect.value == "m-t-o"){
+                var r=Math.floor((textArray.length-1)*Math.random());
+                selectModeForm.innerHTML += "<h1>"+textArray[r]+"</h1>";
+                m_t_oFlag = 1;
+            }
+        }
+        function resetMTO(f){
+            f.innerHTML = "<h3>Mode: <select id='selectMode' name='selectModeSelect'><option value='m-t-m'>many-to-many</option><option value='m-t-o'>many-to-one</option></select> <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'></h3>";
+        }
+    </script>
     <header>
       <div class="inner">
         <h1>Ichiren1.github.io</h1>
@@ -29,18 +96,34 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1><a name=" " class="anchor" href=" "><span class="octicon octicon-link"></span></a>便利なシャッフル！<br></h1>
-            <form method="post" action="example.cgi">
-                <p>お名前：<input type="text" name="name"></p>
-                <p>メールアドレス：<input type="text" name="email"></p>
-                <p><input type="submit" value="送信する"></p>
-            </form>
-        </section>
-        <aside id="sidebar">
+            
+    <body>
+    <form name="selectModeForm" action="index.html">
+        <h3>Mode:
+        <select id="selectMode" name="selectModeSelect">
+            <option value="m-t-m">many-to-many</option>
+            <option value="m-t-o">many-to-one</option>
+        </select>
+        <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'>
+        </h3>
+    </form>
 
-        </aside>
-      </div>
-    </div>
+    <form name = "sampleForm" action="index.html">
+        <input type="button" value="Form Add " onclick="addForm(this.form)">
+        <input type="button" value="Form Delete " onclick="deleteForm(this.form)" margin-left=10px><br>
+        01：<input name><br>
+    </form>
+    
+    <form name = "shuffleForm" action="index.html">
+        <input type="button" value="Let's shufffffffffffle!!!" onclick="shuffle(sampleForm)">
+    </form>
+            </section>
+            <aside id="sidebar">
 
-  
-  </body>
+            </aside>
+          </div>
+        </div>
+
+      
+    </body>
 </html>
