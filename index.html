@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -16,72 +15,93 @@
     <title>Ichiren1.github.io by ichiren1</title>
   </head>
     <script type="text/javascript">
-        var textArray = [];
+        var textArrayA = [];
+        var textArrayB = [];
         var flag = 0;
         var selectedMode;
         function addForm(f) {
             save(f);
             var n = f.elements.length - 1;
-            n = n < 10 ? "0" + n : n;
-            f.innerHTML += n + "：<input name='name"+ n +"'><br>";
+            f.innerHTML += "<input name='name' size='5px'>：<input name='name' size='10px'><br>";
             flag = 0;
             set(f);
         }
         function deleteForm(f) {
             var n = f.elements.length - 2;
             save(f);
-            if(n!=1){
+            if(n!=2){
                 f.innerHTML = "<input type='button' value='Form Add ' onclick='addForm(this.form)'> <input name='name' type='button' value='Form Delete ' onclick='deleteForm(this.form)'><br>" 
-                for (var i = 1; i < n; i++) {
-                    i = i < 10 ? "0" + i : i;
-                    f.innerHTML +=  i + "：<input name='name"+ i +"'><br>";
+                for (var i = 1; i < n/2; i++) {
+                    f.innerHTML +=  "<input name='name' size='5px'>：<input name='name' size='10px'><br>";
                 }
             }
-            textArray.push("");
+            textArrayB.push("");
             flag = 1;
             set(f);
         }
         function save(f){
             var n = f.elements.length-2;
             var a = f.elements[2].value;
-            textArray.length = 0;
+            textArrayA.length = 0;
+            textArrayB.length = 0;
             for (var i = 2; i <= n+1; i++) {
-                textArray.push(f.elements[i].value);
+                if(i%2==1){
+                    if(f.elements[i].value!="")
+                        textArrayB.push(f.elements[i].value);
+                }else
+                    textArrayA.push(f.elements[i].value);
             };
         }
         function set(f){
             var n = f.elements.length-2;
             if(flag == 1) n++;
-            for (var i = 2; i <= n; i++) {
-                f.elements[i].value = textArray[i-2];
+            for (var i = 2,j=0,k=0; i <= n; i++) {
+                if(i%2==0){
+                    if(textArrayA[j]==null)
+                        f.elements[i].value = i/2;
+                    else{
+                        f.elements[i].value = textArrayA[j];
+                        j++;
+                    }
+                }
+                else{
+                    if(textArrayB[k]!=null){
+                        f.elements[i].value = textArrayB[k];
+                        k++;
+                    }
+                    else
+                        f.elements[i].value = "";
+                }
             }
-        }
+        } 
         function shuffle(f){
             save(f);
-            if(selectModeForm.selectModeSelect.value == "m-t-m"){
+            if(selectModeForm.radio1[0].checked){ //shuffle
                 var n = f.elements.length-2;
-                for(var i = 0; i< textArray.length; i++){
-                    var r=Math.floor((textArray.length-1)*Math.random());
-                    var tmp=textArray[i];
-                    textArray[i]=textArray[r];
-                    textArray[r]=tmp;
+                for(var i = 0; i< textArrayB.length; i++){
+                    var r=Math.floor((textArrayB.length-1)*Math.random());
+                    var tmp=textArrayB[i];
+                    textArrayB[i]=textArrayB[r];
+                    textArrayB[r]=tmp;
                 }
                 var test=[];
-                for(var i=0;i<textArray.length;i++){
-                    test+=textArray[i];
+                for(var i=0;i<textArrayB.length;i++){
+                    test+=textArrayB[i];
                     test+=",";
                 }
                 flag=1;
                 set(f);
             }
-            if(selectModeForm.selectModeSelect.value == "m-t-o"){
-                var r=Math.floor((textArray.length-1)*Math.random());
-                selectModeForm.innerHTML += "<h1>"+textArray[r]+"</h1>";
-                m_t_oFlag = 1;
+            if(selectModeForm.radio1[1].checked){ //choose one
+                if(textArrayB.length>1){
+                    var r=Math.floor((textArrayB.length-1)*Math.random());
+                    selectModeForm.innerHTML += "<h1>"+textArrayA[r]+":"+textArrayB[r]+"</h1>";
+                    m_t_oFlag = 1;
+                }
             }
         }
         function resetMTO(f){
-            f.innerHTML = "<h3>Mode: <select id='selectMode' name='selectModeSelect'><option value='m-t-m'>many-to-many</option><option value='m-t-o'>many-to-one</option></select> <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'></h3>";
+            f.innerHTML = "<h3>Mode: <input type='radio' name='radio1' value='shuffle'> shuffle <input type='radio' name='radio1' value='chooseone' checked='checked'> choose one <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'></h3>";
         }
     </script>
     <header>
@@ -100,10 +120,8 @@
     <body>
     <form name="selectModeForm" action="index.html">
         <h3>Mode:
-        <select id="selectMode" name="selectModeSelect">
-            <option value="m-t-m">many-to-many</option>
-            <option value="m-t-o">many-to-one</option>
-        </select>
+        <input type="radio" name="radio1" value="shuffle"> shuffle
+        <input type="radio" name="radio1" value="chooseone"> choose one
         <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'>
         </h3>
     </form>
@@ -111,11 +129,11 @@
     <form name = "sampleForm" action="index.html">
         <input type="button" value="Form Add " onclick="addForm(this.form)">
         <input type="button" value="Form Delete " onclick="deleteForm(this.form)" margin-left=10px><br>
-        01：<input name><br>
+        <input size="5px">：<input name size="10px"><br>
     </form>
     
     <form name = "shuffleForm" action="index.html">
-        <input type="button" value="Let's shufffffffffffle!!!" onclick="shuffle(sampleForm)">
+        <input type="button" value="Let's shuffle!!!" onclick="shuffle(sampleForm)" style="WIDTH: 400px; HEIGHT: 50px">
     </form>
             </section>
             <aside id="sidebar">
