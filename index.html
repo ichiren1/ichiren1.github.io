@@ -76,6 +76,7 @@
         } 
         function shuffle(f){
             save(f);
+            sideForm.innerHTML = "";
             if(selectModeForm.radio1[0].checked){ //shuffle
                 var n = f.elements.length-2;
                 for(var i = 0; i< textArrayB.length; i++){
@@ -84,24 +85,19 @@
                     textArrayB[i]=textArrayB[r];
                     textArrayB[r]=tmp;
                 }
-                var test=[];
-                for(var i=0;i<textArrayB.length;i++){
-                    test+=textArrayB[i];
-                    test+=",";
-                }
                 flag=1;
+                for (var i = 0; i < textArrayB.length; i++) {
+                    sideForm.innerHTML += textArrayA[i] + " : " +textArrayB[i] + "<br>";
+                };
                 set(f);
             }
             if(selectModeForm.radio1[1].checked){ //choose one
                 if(textArrayB.length>1){
                     var r=Math.floor((textArrayB.length-1)*Math.random());
-                    selectModeForm.innerHTML += "<h1>"+textArrayA[r]+":"+textArrayB[r]+"</h1>";
+                    sideForm.innerHTML += "<h1>"+textArrayA[r]+":"+textArrayB[r]+"</h1>";
                     m_t_oFlag = 1;
                 }
             }
-        }
-        function resetMTO(f){
-            f.innerHTML = "<h3>Mode: <input type='radio' name='radio1' value='shuffle'> shuffle <input type='radio' name='radio1' value='chooseone' checked='checked'> choose one <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'></h3>";
         }
     </script>
     <header>
@@ -122,7 +118,6 @@
         <h3>Mode:
         <input type="radio" name="radio1" value="shuffle" checked="checked"> shuffle
         <input type="radio" name="radio1" value="chooseone"> choose one
-        <input type='button' value='x' id='xbutton' onclick='resetMTO(selectModeForm)'>
         </h3>
     </form>
 
@@ -137,7 +132,9 @@
     </form>
             </section>
             <aside id="sidebar">
+                <form name = "sideForm" action="index.html">
 
+                </form>
             </aside>
           </div>
         </div>
