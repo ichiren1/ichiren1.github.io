@@ -22,6 +22,11 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+textarea{
+  margin-top: 10px;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -217,7 +222,7 @@ td {
 
 form {
   background: #f2f2f2;
-  padding: 20px;
+  padding: 10px;
   
 }
 
@@ -273,6 +278,7 @@ form {
   font-size: 15px;
   font-weight: bold;
   color: #474747;
+  margin-top: 10px;
 } 
 
 h4:before {
