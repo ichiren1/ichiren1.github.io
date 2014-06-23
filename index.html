@@ -16,14 +16,13 @@
         var textArrayA = [];
         var textArrayB = [];
         var selectedMode;
-        function addForm(f) {
+        function addForm() {
             save();
-            var n = inputFormA.elements.length;
             inputFormA.innerHTML += "<input name='name' size='5px'>：<br>";
             inputFormB.innerHTML += "<input name='name' size='10px'><br>";
             set();
         }
-        function deleteForm(f) {
+        function deleteForm() {
             var nA = inputFormA.elements.length;
             var nB = inputFormB.elements.length;
             if(nA > 1){
@@ -76,32 +75,55 @@
                 }
             }
             if(nB > 1){
-            save();
-            sideForm1.innerHTML = "Plain Text Format<br>";
-            sideForm1.innerHTML += "=================<br>";
-            sideForm2.innerHTML = "Mark Down Format (?)<br>";
-            sideForm2.innerHTML += "====================<br>";
-            if(buttonForm.radio1[0].checked){ //shuffle
-                for(var i = 0; i< textArrayB.length; i++){
-                    var r=Math.floor((textArrayB.length)*Math.random());
-                    var tmp=textArrayB[i];
-                    textArrayB[i]=textArrayB[r];
-                    textArrayB[r]=tmp;
+                save();
+                sideForm1.innerHTML = "Plain Text Format<br>";
+                sideForm1.innerHTML += "=================<br>";
+                sideForm2.innerHTML = "Mark Down Format (?)<br>";
+                sideForm2.innerHTML += "====================<br>";
+                if(buttonForm.radio1[0].checked){ //shuffle
+                    for(var i = 0; i< textArrayB.length; i++){
+                        var r=Math.floor((textArrayB.length)*Math.random());
+                        var tmp=textArrayB[i];
+                        textArrayB[i]=textArrayB[r];
+                        textArrayB[r]=tmp;
+                    }
+                    for (var i = 0; i < textArrayB.length; i++) {
+                        sideForm1.innerHTML += textArrayA[i] + " : " + textArrayB[i] + "<br>";
+                        sideForm2.innerHTML += " - " + textArrayA[i] + " : " + textArrayB[i] + "<br>";
+                    };
+                    set();
                 }
-                for (var i = 0; i < textArrayB.length; i++) {
-                    sideForm1.innerHTML += textArrayA[i] + " : " + textArrayB[i] + "<br>";
-                    sideForm2.innerHTML += " - " + textArrayA[i] + " : " + textArrayB[i] + "<br>";
+                if(buttonForm.radio1[1].checked){ //choose one
+                    if(textArrayB.length>1){
+                        var r=Math.floor((textArrayB.length)*Math.random());
+                        sideForm1.innerHTML += textArrayA[r]+" : "+textArrayB[r]+"<br>";
+                        sideForm2.innerHTML += " - "+textArrayA[r]+" : "+textArrayB[r]+"<br>";
+                    }
+                }
+            }
+        }
+        function setTemplateForm(f){
+            if(f.elements[2].value!=""){
+                textArray = f.elements[2].value.split("\n");
+                var n = textArray.length-inputFormB.elements.length;
+                for (var i=0; i < n;i++){
+                    inputFormA.innerHTML += "<input name='name' size='5px'>：<br>";
+                    inputFormB.innerHTML += "<input name='name' size='10px'><br>";
+                }
+                for (var i = 0; i < textArray.length; i++) {
+                    if( / : /.test(textArray[i])){
+                        var textAB = textArray[i].split(" : ");
+                        inputFormA.elements[i].value = textAB[0];
+                        inputFormB.elements[i].value = textAB[1];
+                    }else{
+                        inputFormB.elements[i].value = textArray[i];
+                    }
                 };
-                set();
             }
-            if(buttonForm.radio1[1].checked){ //choose one
-                if(textArrayB.length>1){
-                    var r=Math.floor((textArrayB.length)*Math.random());
-                    sideForm1.innerHTML += textArrayA[r]+" : "+textArrayB[r]+"<br>";
-                    sideForm2.innerHTML += " - "+textArrayA[r]+" : "+textArrayB[r]+"<br>";
-                }
-            }
-            }
+        }
+        function form_reset(){
+            inputFormA.innerHTML = "<input size='5px' value='1'>：<br>";
+            inputFormB.innerHTML = "<input size='10px' value=''><br>";
         }
     </script>
     <header>
@@ -122,9 +144,10 @@
         <h3>Mode:
         <input type="radio" name="radio1" value="shuffle" checked="checked"> shuffle
         <input type="radio" name="radio1" value="chooseone"> choose one
+        <input type="button" value="Reset" onclick="form_reset()">
         </h3>
-        <input type="button" value="Form Add " onclick="addForm(inputFormA)">
-        <input type="button" value="Form Delete " onclick="deleteForm(inputFormA)" margin-left=10px><br>
+        <input type="button" value="Form Add(+)" onclick="addForm()">
+        <input type="button" value="Form Delete(-)" onclick="deleteForm()" margin-left=10px><br>
     </form>
 
     <form name = "inputFormA" action="index.html" style="float:left">
@@ -138,8 +161,10 @@
     
     <form name = "shuffleForm" action="index.html">
         <input type="button" value="Let's shuffle!!!" onclick="shuffle(inputFormB)" style="WIDTH: 400px; HEIGHT: 50px"><br>
-        <!-- <h4>Template Mode: </h4>
-        <textarea name="example1" cols="40" rows="5"></textarea></p> -->
+        <h4>Template Mode:
+        <input type="button" value="SET" onclick="setTemplateForm(this.form)" >
+         </h4>
+        <textarea name="example1" cols="40" rows="5"></textarea></p>
     </form>
             </section>
             <aside id="sidebar">
