@@ -77,9 +77,9 @@
             if(nB > 1){
                 save();
                 sideForm1.innerHTML = "Plain Text Format<br>";
-                sideForm1.innerHTML += "=================<br>";
+                sideForm1.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 sideForm2.innerHTML = "Mark Down Format (?)<br>";
-                sideForm2.innerHTML += "====================<br>";
+                sideForm2.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 if(buttonForm.radio1[0].checked){ //shuffle
                     for(var i = 0; i< textArrayB.length; i++){
                         var r=Math.floor((textArrayB.length)*Math.random());
@@ -116,6 +116,7 @@
                         inputFormA.elements[i].value = textAB[0];
                         inputFormB.elements[i].value = textAB[1];
                     }else{
+                        inputFormA.elements[i].value = i+1;
                         inputFormB.elements[i].value = textArray[i];
                     }
                 };
