@@ -18,8 +18,8 @@
         var selectedMode;
         function addForm() {
             save();
-            inputFormA.innerHTML += "<input name='name' size='5px'>：<br>";
-            inputFormB.innerHTML += "<input name='name' size='10px'><br>";
+            inputFormA.innerHTML += "<input size='5px'>：<br>";
+            inputFormB.innerHTML += "<input size='10px'><br>";
             set();
         }
         function deleteForm() {
@@ -30,8 +30,8 @@
                 inputFormA.innerHTML = "";
                 inputFormB.innerHTML = "";
                 for (var i = 0; i < nA-1; i++) {
-                    inputFormA.innerHTML += "<input name='name' size='5px'>：<br>";
-                    inputFormB.innerHTML += "<input name='name' size='10px'><br>";
+                    inputFormA.innerHTML += "<input size='5px'>：<br>";
+                    inputFormB.innerHTML += "<input size='10px'><br>";
                 }
                 set();
             }
@@ -82,7 +82,7 @@
                 sideForm2.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 if(buttonForm.radio1[0].checked){ //shuffle
                     for(var i = 0; i< textArrayB.length; i++){
-                        var r=Math.floor((textArrayB.length)*Math.random());
+                        var r=Math.floor((textArrayB.length)*Math.random(new Date()));
                         var tmp=textArrayB[i];
                         textArrayB[i]=textArrayB[r];
                         textArrayB[r]=tmp;
@@ -95,7 +95,7 @@
                 }
                 if(buttonForm.radio1[1].checked){ //choose one
                     if(textArrayB.length>1){
-                        var r=Math.floor((textArrayB.length)*Math.random());
+                        var r=Math.floor((textArrayB.length)*Math.random(new Date()));
                         sideForm1.innerHTML += textArrayA[r]+" : "+textArrayB[r]+"<br>";
                         sideForm2.innerHTML += " - "+textArrayA[r]+" : "+textArrayB[r]+"<br>";
                     }
@@ -107,8 +107,8 @@
                 textArray = f.elements[2].value.split("\n");
                 var n = textArray.length-inputFormB.elements.length;
                 for (var i=0; i < n;i++){
-                    inputFormA.innerHTML += "<input name='name' size='5px'>：<br>";
-                    inputFormB.innerHTML += "<input name='name' size='10px'><br>";
+                    inputFormA.innerHTML += "<input size='5px'>：<br>";
+                    inputFormB.innerHTML += "<input size='10px'><br>";
                 }
                 for (var i = 0; i < textArray.length; i++) {
                     if( / : /.test(textArray[i])){
@@ -133,6 +133,48 @@
         <h2></h2>
         <a href="https://github.com/ichiren1" class="button"><small>Follow me on</small>GitHub</a>
       </div>
+      <script>
+        function simple_tooltip(target_items, name){
+        $(target_items).each(function(i){
+                $("body").append("<div class='"+name+"' id='"+name+i+"'><p>"+$(this).attr('title')+"</p></div>");
+                var my_tooltip = $("#"+name+i);
+                
+                if($(this).attr("title") != "" && $(this).attr("title") != "undefined" ){
+                
+                $(this).removeAttr("title").mouseover(function(){
+                            my_tooltip.css({opacity:0.8, display:"none"}).fadeIn(400);
+                }).mousemove(function(kmouse){
+                        var border_top = $(window).scrollTop();
+                        var border_right = $(window).width();
+                        var left_pos;
+                        var top_pos;
+                        var offset = 20;
+                        if(border_right - (offset *2) >= my_tooltip.width() + kmouse.pageX){
+                            left_pos = kmouse.pageX+offset;
+                            } else{
+                            left_pos = border_right-my_tooltip.width()-offset;
+                            }
+                            
+                        if(border_top + (offset *2)>= kmouse.pageY - my_tooltip.height()){
+                            top_pos = border_top +offset;
+                            } else{
+                            top_pos = kmouse.pageY-my_tooltip.height()-offset;
+                            }    
+                        
+                        
+                        my_tooltip.css({left:left_pos, top:top_pos});
+                }).mouseout(function(){
+                        my_tooltip.css({left:"-9999px"});                  
+                });
+                
+                }
+         
+            });
+        }
+        $(document).ready(function(){
+         simple_tooltip(".entry a img","tooltip");
+        });
+        </script>
     </header>
 
     <div id="content-wrapper">
@@ -141,6 +183,7 @@
           <h1><a name=" " class="anchor" href=" "><span class="octicon octicon-link"></span></a>便利なシャッフル！<br></h1>
             
     <body>
+    <img src=""; title="ここにテキスト<br />ここにテキスト">
     <form name="buttonForm" action="index.html">
         <h3>Mode:
         <input type="radio" name="radio1" value="shuffle" checked="checked"> shuffle
