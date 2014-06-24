@@ -12,6 +12,8 @@
 
     <title>Ichiren1.github.io by ichiren1</title>
   </head>
+    <script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="javascripts/jquery.balloon.js"></script>
     <script type="text/javascript">
         var textArrayA = [];
         var textArrayB = [];
@@ -105,6 +107,11 @@
         function setTemplateForm(f){
             if(f.elements[2].value!=""){
                 textArray = f.elements[2].value.split("\n");
+                // for (var i = 0; i < textArray.length; i++) {
+                //     if(textArray[i] == "" ){
+                //         delete textArray[i];
+                //     }
+                // };
                 var n = textArray.length-inputFormB.elements.length;
                 for (var i=0; i < n;i++){
                     inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
@@ -172,7 +179,7 @@
             });
         }
         $(document).ready(function(){
-         simple_tooltip(".entry a img","tooltip");
+         simple_tooltip("img","tooltip");
         });
         </script>
     </header>
@@ -183,7 +190,18 @@
           <h1><a name=" " class="anchor" href=" "><span class="octicon octicon-link"></span></a>便利なシャッフル！<br></h1>
             
     <body>
-    <img src="images/favicon/favicon.ico"; title="ここにテキスト<br />ここにテキスト">
+    <img src="images/itiren1mozinasi.png"; title=
+    "Templateはコピペでフォームにセット出来るんだよ〜(*ﾟ0ﾟ)わーお<br>" 
+    style="WIDTH:50px; HEIGHT:50px">
+    <a href="#" class="help1" title=
+    "1分ぐらいでわかる！使い方！！<br>
+        1. シャッフルする候補の数だけForm add(+)します<br>
+        2. モードを選びます(shuffleかchoose one)<br>
+        3. Let's shuffle!!!のボタンを押します<br>
+        4. ブラウザの右か下に出力結果が出ます<br>
+        5. 終わりです <br>">
+    ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a>
+    
     <form name="buttonForm" action="index.html">
         <h3>Mode:
         <input type="radio" name="radio1" value="shuffle" checked="checked"> shuffle

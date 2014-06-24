@@ -490,8 +490,9 @@ div.tooltip    {
 div.tooltip p{
     color: #FFF;
     background: #222;
-    padding: 5px 10px;
+    padding: 5px 5px;
 }
+
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {}
