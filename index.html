@@ -71,6 +71,7 @@
         } 
         function shuffle(f){
             var nB = 0;
+            var sideForm3_f = false;
             for(var i=0; i < inputFormB.elements.length; i++){
                 if(inputFormB.elements[i].value != ""){
                     nB++;
@@ -89,17 +90,25 @@
                         textArrayB[i]=textArrayB[r];
                         textArrayB[r]=tmp;
                     }
+                    var out = "";
                     for (var i = 0; i < textArrayB.length; i++) {
                         sideForm1.innerHTML += textArrayA[i] + " : " + textArrayB[i] + "<br>";
                         sideForm2.innerHTML += " - " + textArrayA[i] + " : " + textArrayB[i] + "<br>";
+                        out += encodeURIComponent(textArrayA[i] + " : " + textArrayB[i]) + "%0A";
                     };
+                    var f='http://twitter.com/?status='+out+encodeURIComponent(location.href); 
+                    sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'>つぶやく</a>";
                     set();
                 }
                 if(buttonForm.radio1[1].checked){ //choose one
                     if(textArrayB.length>1){
+                        var out ="";
                         var r=Math.floor((textArrayB.length)*Math.random(new Date()));
                         sideForm1.innerHTML += textArrayA[r]+" : "+textArrayB[r]+"<br>";
                         sideForm2.innerHTML += " - "+textArrayA[r]+" : "+textArrayB[r]+"<br>";
+                        out = encodeURIComponent(textArrayA[r] + " : " + textArrayB[r])+"%0A";
+                        var f='http://twitter.com/?status='+out+encodeURIComponent(location.href); 
+                        sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'>つぶやく</a>";
                     }
                 }
             }
@@ -202,7 +211,6 @@
         5. ブラウザの右か下に出力結果が出ます<br>
         6. 終わりです <br>">
     ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a>
-    
     <form name="buttonForm" action="index.html">
         <h3>Mode:
         <input type="radio" name="radio1" value="shuffle" checked="checked"> shuffle
@@ -231,10 +239,9 @@
     </form>
             </section>
             <aside id="sidebar">
-                <form name = "sideForm1" action="index.html">
-                </form>
-                <form name = "sideForm2" action="index.html">
-                </form>
+                <form name = "sideForm1" action="index.html"></form>
+                <form name = "sideForm2" action="index.html"></form>
+                <form name = "sideForm3" action="index.html"></form>
             </aside>
           </div>
         </div>
