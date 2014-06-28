@@ -96,8 +96,8 @@
                         sideForm2.innerHTML += " - " + textArrayA[i] + " : " + textArrayB[i] + "<br>";
                         out += encodeURIComponent(textArrayA[i] + " : " + textArrayB[i]) + "%0A";
                     };
-                    var f='http://twitter.com/?status='+out+encodeURIComponent(location.href); 
-                    sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'>つぶやく</a>";
+                    var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle"); 
+                    sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
                     set();
                 }
                 if(buttonForm.radio1[1].checked){ //choose one
@@ -107,7 +107,7 @@
                         sideForm1.innerHTML += textArrayA[r]+" : "+textArrayB[r]+"<br>";
                         sideForm2.innerHTML += " - "+textArrayA[r]+" : "+textArrayB[r]+"<br>";
                         out = encodeURIComponent(textArrayA[r] + " : " + textArrayB[r])+"%0A";
-                        var f='http://twitter.com/?status='+out+encodeURIComponent(location.href); 
+                        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle"); 
                         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'>つぶやく</a>";
                     }
                 }
@@ -116,11 +116,6 @@
         function setTemplateForm(f){
             if(f.elements[2].value!=""){
                 textArray = f.elements[2].value.split("\n");
-                // for (var i = 0; i < textArray.length; i++) {
-                //     if(textArray[i] == "" ){
-                //         delete textArray[i];
-                //     }
-                // };
                 var n = textArray.length-inputFormB.elements.length;
                 for (var i=0; i < n;i++){
                     inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
