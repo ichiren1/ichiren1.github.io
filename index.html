@@ -15,8 +15,10 @@
     <script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="javascripts/jquery.balloon.js"></script>
     <script type="text/javascript">
-        var textArrayA = [];
-        var textArrayB = [];
+        var textArrayAin = [];
+        var textArrayBin = [];
+        var textArrayAout = [];
+        var textArrayBout = [];
         var selectedMode;
         function addForm() {
             save();
@@ -41,29 +43,29 @@
         function save(){
             var nA = inputFormA.elements.length;
             var a = inputFormA.elements[0].value;
-            textArrayA.length = 0;
-            textArrayB.length = 0;
+            textArrayAin.length = 0;
+            textArrayBin.length = 0;
             for (var i = 0; i < nA; i++) {
                 if(inputFormA.elements[i].value != ""){
-                    textArrayA.push(inputFormA.elements[i].value);
+                    textArrayAin.push(inputFormA.elements[i].value);
                 }
                 if(inputFormB.elements[i].value != ""){
-                    textArrayB.push(inputFormB.elements[i].value);
+                    textArrayBin.push(inputFormB.elements[i].value);
                 }
             };
         }
         function set(f){
             var nA = inputFormA.elements.length;
-            var nTA = textArrayA.length;
-            var nTB = textArrayB.length;
+            var nTA = textArrayAin.length;
+            var nTB = textArrayBin.length;
             for (var i = 0; i <= nA; i++) {
                 if(nTA > i){
-                    inputFormA.elements[i].value = textArrayA[i];
+                    inputFormA.elements[i].value = textArrayAin[i];
                 }else{
                     inputFormA.elements[i].value = i+1;
                 }
                 if(nTB > i){
-                    inputFormB.elements[i].value = textArrayB[i];
+                    inputFormB.elements[i].value = textArrayBin[i];
                 }else{
                     inputFormB.elements[i].value = "";
                 }
@@ -79,26 +81,27 @@
             }
             if(nB > 1){
                 save();
+                textArrayAout = textArrayAin;
+                textArrayBout = textArrayBin;
                 sideForm1.innerHTML = "Plain Text Format<br>";
                 sideForm1.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 sideForm2.innerHTML = "Mark Down Format (?)<br>";
                 sideForm2.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 if(buttonForm.radio1[0].checked){ //shuffle
-                    for(var i = 0; i< textArrayB.length; i++){
-                        var r=Math.floor((textArrayB.length)*Math.random(new Date()));
-                        var tmp=textArrayB[i];
-                        textArrayB[i]=textArrayB[r];
-                        textArrayB[r]=tmp;
+                    for(var i = 0; i< textArrayBout.length; i++){
+                        var r=Math.floor((textArrayBout.length)*Math.random(new Date()));
+                        var tmp=textArrayBout[i];
+                        textArrayBout[i]=textArrayBout[r];
+                        textArrayBout[r]=tmp;
                     }
                     var out = "";
-                    for (var i = 0; i < textArrayB.length; i++) {
-                        sideForm1.innerHTML += textArrayA[i] + " : " + textArrayB[i] + "<br>";
-                        sideForm2.innerHTML += " - " + textArrayA[i] + " : " + textArrayB[i] + "<br>";
-                        out += encodeURIComponent(textArrayA[i] + " : " + textArrayB[i]) + "%0A";
+                    for (var i = 0; i < textArrayBout.length; i++) {
+                        sideForm1.innerHTML += textArrayAout[i] + " : " + textArrayBout[i] + "<br>";
+                        sideForm2.innerHTML += " - " + textArrayAout[i] + " : " + textArrayBout[i] + "<br>";
+                        out += encodeURIComponent(textArrayAout[i] + " : " + textArrayBout[i]) + "%0A";
                     };
                     var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle"); 
                     sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
-                    set();
                 }
                 if(buttonForm.radio1[1].checked){ //choose one
                     if(textArrayB.length>1){
