@@ -104,12 +104,12 @@
                     sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
                 }
                 if(buttonForm.radio1[1].checked){ //choose one
-                    if(textArrayB.length>1){
+                    if(textArrayBin.length>1){
                         var out ="";
-                        var r=Math.floor((textArrayB.length)*Math.random(new Date()));
-                        sideForm1.innerHTML += textArrayA[r]+" : "+textArrayB[r]+"<br>";
-                        sideForm2.innerHTML += " - "+textArrayA[r]+" : "+textArrayB[r]+"<br>";
-                        out = encodeURIComponent(textArrayA[r] + " : " + textArrayB[r])+"%0A";
+                        var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
+                        sideForm1.innerHTML += textArrayAin[r]+" : "+textArrayBin[r]+"<br>";
+                        sideForm2.innerHTML += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"<br>";
+                        out = encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
                         var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle"); 
                         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
                     }
