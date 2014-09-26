@@ -118,6 +118,8 @@
         }
         function setTemplateForm(f){
             if(f.elements[2].value!=""){
+                inputFormA.innerHTML = null;
+                inputFormB.innerHTML = null;
                 textArray = f.elements[2].value.split("\n");
                 var n = textArray.length-inputFormB.elements.length;
                 for (var i=0; i < n; i++){
