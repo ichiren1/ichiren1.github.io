@@ -120,7 +120,7 @@
             if(f.elements[2].value!=""){
                 textArray = f.elements[2].value.split("\n");
                 var n = textArray.length-inputFormB.elements.length;
-                for (var i=0; i < n;i++){
+                for (var i=0; i < n; i++){
                     inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
                     inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
                 }
@@ -130,6 +130,24 @@
                         inputFormA.elements[i].value = textAB[0];
                         inputFormB.elements[i].value = textAB[1];
                     }else{
+                        if( /We are rootbeer/.test(textArray[i])) {
+                            for(var j=0; j<7; j++){
+                                inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
+                                inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+                            }
+                            for(var j=0; j<8; j++){
+                                inputFormA.elements[j].value = j+1;
+                            }
+                            inputFormB.elements[0].value = "ichiren";
+                            inputFormB.elements[1].value = "uryu";
+                            inputFormB.elements[2].value = "ejo";
+                            inputFormB.elements[3].value = "kumar";
+                            inputFormB.elements[4].value = "kuromilk";
+                            inputFormB.elements[5].value = "KG";
+                            inputFormB.elements[6].value = "choco";
+                            inputFormB.elements[7].value = "MiZUP";
+                            break;
+                        }
                         if( /:/.test(textArray[i])) { //hankaku
                             var textAB = textArray[i].split(":");
                             inputFormA.elements[i].value = textAB[0];
