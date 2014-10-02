@@ -150,6 +150,25 @@
                             inputFormB.elements[7].value = "MiZUP";
                             break;
                         }
+                        if( /Pizza/.test(textArray[i]) ) {
+                            for(var j=0; j<8; j++){
+                                inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
+                                inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+                            }
+                            for(var j=0; j<9; j++){
+                                inputFormA.elements[j].value = j+1;
+                            }
+                            inputFormB.elements[0].value = "テンフォーミックス";
+                            inputFormB.elements[1].value = "フレッシュトマト";
+                            inputFormB.elements[2].value = "カントリー男爵（ショウユソース）";
+                            inputFormB.elements[3].value = "カントリー男爵（カレーソース）";
+                            inputFormB.elements[4].value = "エビデラックス";
+                            inputFormB.elements[5].value = "ジョイポップ";
+                            inputFormB.elements[6].value = "味わいサラミ";
+                            inputFormB.elements[7].value = "テリヤキハーブチキン";
+                            inputFormB.elements[8].value = "香味海鮮";
+                            break;
+                        }
                         if( /:/.test(textArray[i])) { //hankaku
                             var textAB = textArray[i].split(":");
                             inputFormA.elements[i].value = textAB[0];
