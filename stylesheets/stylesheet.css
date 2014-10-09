@@ -100,13 +100,14 @@ header h2 {
   margin: 0 auto;
 }
 
+
 #content-wrapper {
   border-top: solid 1px #fff;
   padding-top: 30px;
 }
 
 #main-content {
-  width: 690px;
+  width: 500px;
   float: left;
 }
 
@@ -493,6 +494,44 @@ div.tooltip p{
     padding: 5px 5px;
 }
 
+.template button{
+  margin: 10px 0px;
+}divButtonForm
+
+ form#buttonForm {
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.radiobuttons input{
+    display: none;
+}
+.radiobuttons label{
+    display: block;
+    float: left;
+    cursor: pointer;
+    width: 80px;
+    margin: 0;
+    padding: 12px 5px;
+    border-right: 1px solid #abb2b7;
+    background: #bdc3c7;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1;
+    transition: .2s;
+}
+.radiobuttons label:first-of-type{
+    border-radius: 3px 0 0 3px;
+}
+.radiobuttons label:last-of-type{
+    border-right: 0px;
+    border-radius: 0 3px 3px 0;
+}
+.radiobuttons input[type="radio"]:checked + label {
+    background-color: #1AA9C2;
+    color: #fff;
+}
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {}

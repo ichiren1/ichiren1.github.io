@@ -2,18 +2,20 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <link rel="shortcut icon" href="images/favicon/favicon.ico" />
-
-    <title>ichiren1.github.io by ichiren1</title>
-  </head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'> -->
     <script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="javascripts/jquery.balloon.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <!-- <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" /> -->
+    <link rel="shortcut icon" href="inputFormAges/favicon/favicon.ico" />
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <title>ichirenShuffle</title>
+  </head>
     <script type="text/javascript">
         var textArrayAin = [];
         var textArrayBin = [];
@@ -22,8 +24,8 @@
         var selectedMode;
         function addForm() {
             save();
-            inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
-            inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+            inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
+            inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 30px;WIDTH: 150px'><br>";
             set();
         }
         function deleteForm() {
@@ -34,8 +36,8 @@
                 inputFormA.innerHTML = "";
                 inputFormB.innerHTML = "";
                 for (var i = 0; i < nA-1; i++) {
-                    inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
-                    inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+                    inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
+                    inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 30px;WIDTH: 150px'><br>";
                 }
                 set();
             }
@@ -58,7 +60,7 @@
             var nA = inputFormA.elements.length;
             var nTA = textArrayAin.length;
             var nTB = textArrayBin.length;
-            for (var i = 0; i <= nA; i++) {
+            for (var i = 0; i < nA; i++) {
                 if(nTA > i){
                     inputFormA.elements[i].value = textArrayAin[i];
                 }else{
@@ -87,7 +89,7 @@
                 sideForm1.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 sideForm2.innerHTML = "## Mark Down Format (?)<br>## ";
                 sideForm2.innerHTML += new Date().toLocaleString()+"<br><br>---<br>";
-                if(buttonForm.radio1[0].checked){ //shuffle
+                if(buttonForm1.elements[0].checked){ //shuffle
                     for(var i = 0; i< textArrayBout.length; i++){
                         var r=Math.floor((textArrayBout.length)*Math.random(new Date()));
                         var tmp=textArrayBout[i];
@@ -103,7 +105,7 @@
                     var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
                     sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
                 }
-                if(buttonForm.radio1[1].checked){ //choose one
+                if(buttonForm1.elements[1].checked){ //choose one
                     if(textArrayBin.length>1){
                         var out ="";
                         var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
@@ -117,14 +119,15 @@
             }
         }
         function setTemplateForm(f){
-            if(f.elements[2].value!=""){
+
+            if(f.elements[1].value!=""){
                 inputFormA.innerHTML = null;
                 inputFormB.innerHTML = null;
-                textArray = f.elements[2].value.split("\n");
+                textArray = f.elements[1].value.split("\n");
                 var n = textArray.length-inputFormB.elements.length;
                 for (var i=0; i < n; i++){
-                    inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
-                    inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+                    inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
+                    inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 30px;WIDTH: 150px'><br>";
                 }
                 for (var i = 0; i < textArray.length; i++) {
                     if( / : /.test(textArray[i])){
@@ -134,8 +137,8 @@
                     }else{
                         if( /We are rootbeer/.test(textArray[i])) {
                             for(var j=0; j<7; j++){
-                                inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
-                                inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+                                inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
+                                inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 30px;WIDTH: 150px'><br>";
                             }
                             for(var j=0; j<8; j++){
                                 inputFormA.elements[j].value = j+1;
@@ -152,8 +155,8 @@
                         }
                         if( /Pizza/.test(textArray[i]) ) {
                             for(var j=0; j<8; j++){
-                                inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 15px'>：<br>";
-                                inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 15px'><br>";
+                                inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
+                                inputFormB.innerHTML += "<input size='10px' style='HEIGHT: 30px;WIDTH: 150px'><br>";
                             }
                             for(var j=0; j<9; j++){
                                 inputFormA.elements[j].value = j+1;
@@ -186,16 +189,16 @@
             }
         }
         function form_reset(){
-            inputFormA.innerHTML = "<input size='5px' value='1' style='HEIGHT: 15px'>：<br>";
-            inputFormB.innerHTML = "<input size='10px' value='' style='HEIGHT: 15px'><br>";
+            inputFormA.innerHTML = "<input size='5px' value='1' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
+            inputFormB.innerHTML = "<input size='10px' value='' style='HEIGHT: 30px;WIDTH: 150px'><br>";
         }
     </script>
     <header>
-      <div class="inner">
+      <!-- <div class="inner">
         <h1>ichiren1.github.io</h1>
         <h2></h2>
         <a href="https://github.com/ichiren1" class="button"><small>Follow me on</small>GitHub</a>
-      </div>
+      </div> -->
       <script>
         function simple_tooltip(target_items, name){
         $(target_items).each(function(i){
@@ -227,7 +230,7 @@
                         
                         my_tooltip.css({left:left_pos, top:top_pos});
                 }).mouseout(function(){
-                        my_tooltip.css({left:"-9999px"});                  
+                        my_tooltip.css({left:"-9999px"});
                 });
                 
                 }
@@ -244,53 +247,91 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1><a name=" " class="anchor" href=" "><span class="octicon octicon-link"></span></a>便利なシャッフル！<br></h1>
+            <body>
+            <img src="images/itiren1mozinasi.png"; title=
+            "Templateはコピペでフォームにセット出来るんだよ〜(*ﾟ0ﾟ)わーお<br>" 
+            style="WIDTH:50px; HEIGHT:50px">
+            <a href="#" class="help1" title=
+            "使い方！！<br>
+                1. シャッフルする候補の数だけ足す(+)<br>
+                2. 候補を入力します。<br>
+                3. モードを選びます<br>
+                4. 出力のボタンを押します<br>
+                5. ブラウザの右か下に出力結果が出ます<br>
+                6. 終わりです <br>">
+            ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a>
             
-    <body>
-    <img src="images/itiren1mozinasi.png"; title=
-    "Templateはコピペでフォームにセット出来るんだよ〜(*ﾟ0ﾟ)わーお<br>" 
-    style="WIDTH:50px; HEIGHT:50px">
-    <a href="#" class="help1" title=
-    "1分ぐらいでわかる！使い方！！<br>
-        1. シャッフルする候補の数だけForm add(+)します<br>
-        2. 候補を入力します。<br>
-        3. モードを選びます(shuffleかchoose one)<br>
-        4. Let's shuffle!!!のボタンを押します<br>
-        5. ブラウザの右か下に出力結果が出ます<br>
-        6. 終わりです <br>">
-    ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a>
-    <form name="buttonForm" action="index.html">
-        <h3>Mode:
-        <input type="radio" name="radio1" value="shuffle" checked="checked"> shuffle
-        <input type="radio" name="radio1" value="chooseone"> choose one
-        <input type="button" value="Reset" onclick="form_reset()">
-        </h3>
-        <input type="button" value="Form Add(+)" onclick="addForm()">
-        <input type="button" value="Form Delete(-)" onclick="deleteForm()" margin-left=10px><br>
-    </form>
+            
+            <form name="buttonForm1" action="index.html">
+                <div class="radiobuttons">
+                    <input type="radio" name="s3" id="select1" value="1" checked="">
+                    <label for="select1">シャッフル</label>
+                    <input type="radio" name="s3" id="select2" value="2">
+                    <label for="select2">1つ選ぶ</label><br>
+                </div>
+            </form>
 
-    <form name = "inputFormA" action="index.html" style="float:left">
-        <input size="5px" value="1" style="HEIGHT: 15px">：<br>
-    </form>
+            <form name="ctrlbutton1">
+                <div class="ctrlbutton">
+                    <button type="button" class="btn btn-primary" onclick="addForm()">足す(+)</button>  
+                    <button type="button" class="btn btn-primary" onclick="deleteForm()">減らす(-)</button>
+                    <button type="button" class="btn btn-danger" onclick="form_reset()">リセット</button>
+                </div>
+            </form>
 
-    <form name = "inputFormB" action="index.html" >
-        <input size="10px" value="" style="HEIGHT: 15px"><br>
-    </form>
-    
-    
-    <form name = "shuffleForm" action="index.html">
-        <input type="button" value="Let's shuffle!!!" onclick="shuffle(inputFormB)" style="WIDTH: 400px; HEIGHT: 50px"><br>
-        <h4>Template Mode:
-        <input type="button" value="SET" onclick="setTemplateForm(this.form)" >
-         </h4>
-        <textarea name="example1" cols="40" rows="5"></textarea></p>
-    </form>
-            </section>
-            <aside id="sidebar">
-                <form name = "sideForm1" action="index.html"></form>
-                <form name = "sideForm2" action="index.html"></form>
-                <form name = "sideForm3" action="index.html"></form>
-            </aside>
-          </div>
-        </div>
+            <div class="inputForms">
+                <form name = "inputFormA" action="index.html" style="float:left">
+                    <input size="5px" value="1" style="HEIGHT: 30px;WIDTH: 150px">：<br>
+                </form>
+
+                <form name = "inputFormB" action="index.html" >
+                    <input size="10px" value="" style="HEIGHT: 30px;WIDTH: 150px"><br>
+                </form>
+                
+
+                <form name = "shuffleForm" action="index.html">
+                    <div class="shuffleButton">
+                        <button type="button" class="btn btn-danger" onclick="shuffle(inputFormB)">Let's shuffle!!!</button>
+                    </div>
+
+                    <div class="template">
+                        <img src="images/itiren1mozinasi.png"; title=
+                        "プリセットもあるよ～！ @ichiren1に希望出してくれたら実装するよ～(*ﾟ0ﾟ)わーお<br>" 
+                        style="WIDTH:50px; HEIGHT:50px">
+
+                        <a href="#" class="help1" title=
+                        "使い方！！<br>
+                            1. え、ボタン1個1個追加したりするのだるくね<br>
+2. 毎回同じ人たちでシャッフルするんだよなぁ...<br>
+3. そんな時にめっちゃ便利<br>
+4. 例えば、田中くんと鈴木くんと砂糖くんでシャッフルしたいなら<br>
+5. テキストエリアに<br>
+田中くん<br>
+鈴木くん<br>
+砂糖くん　と入力してSET!<br>
+6. 改行で分けてるからしっかり入れてね～<br>
+7. 終わりだよ～<br>
+(出力された結果を張り付ければ決まったメンバーがすぐセットできます)<br>">
+                            ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a><br>
+                        
+                        <div>
+                            <textarea name="template" cols="40" rows="5"></textarea><br>
+                        </div>
+                        <button type="button" class="btn btn-info" onclick="setTemplateForm(this.form)">SET</button>
+
+                    </div>
+                </form>
+            </div>
+        </section>
+        <aside id="sidebar">
+            <form name = "sideForm1" action="index.html"></form>
+            <form name = "sideForm2" action="index.html"></form>
+            <form name = "sideForm3" action="index.html"></form>
+        </aside>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="javascript/bootstrap.min.js"></script>
     </body>
 </html>
