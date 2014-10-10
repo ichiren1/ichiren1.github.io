@@ -125,11 +125,10 @@
             }
         }
         function setTemplateForm(f){
-
-            if(f.elements[1].value!=""){
+            if(f.elements[2].value!=""){
                 inputFormA.innerHTML = null;
                 inputFormB.innerHTML = null;
-                textArray = f.elements[1].value.split("\n");
+                textArray = f.elements[2].value.split("\n");
                 var n = textArray.length-inputFormB.elements.length;
                 for (var i=0; i < n; i++){
                     inputFormA.innerHTML += "<input size='5px' style='HEIGHT: 30px;WIDTH: 150px'>：<br>";
