@@ -89,33 +89,39 @@
                 sideForm1.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
                 sideForm2.innerHTML = "## Mark Down Format (?)<br>## ";
                 sideForm2.innerHTML += new Date().toLocaleString()+"<br><br>---<br>";
-                if(buttonForm1.elements[0].checked){ //shuffle
-                    for(var i = 0; i< textArrayBout.length; i++){
-                        var r=Math.floor((textArrayBout.length)*Math.random(new Date()));
-                        var tmp=textArrayBout[i];
-                        textArrayBout[i]=textArrayBout[r];
-                        textArrayBout[r]=tmp;
-                    }
-                    var out = "";
-                    for (var i = 0; i < textArrayBout.length; i++) {
-                        sideForm1.innerHTML += textArrayAout[i] + " : " + textArrayBout[i] + "<br>";
-                        sideForm2.innerHTML += " - " + textArrayAout[i] + " : " + textArrayBout[i] + "<br>";
-                        out += encodeURIComponent(textArrayAout[i] + " : " + textArrayBout[i]) + "%0A";
-                    };
-                    var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
-                    sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
+                for(var i = 0; i< textArrayBout.length; i++){
+                    var r=Math.floor((textArrayBout.length)*Math.random(new Date()));
+                    var tmp=textArrayBout[i];
+                    textArrayBout[i]=textArrayBout[r];
+                    textArrayBout[r]=tmp;
                 }
-                if(buttonForm1.elements[1].checked){ //choose one
-                    if(textArrayBin.length>1){
-                        var out ="";
-                        var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
-                        sideForm1.innerHTML += textArrayAin[r]+" : "+textArrayBin[r]+"<br>";
-                        sideForm2.innerHTML += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"<br>";
-                        out = encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
-                        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
-                        sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
-                    }
-                }
+                var out = "";
+                for (var i = 0; i < textArrayBout.length; i++) {
+                    sideForm1.innerHTML += textArrayAout[i] + " : " + textArrayBout[i] + "<br>";
+                    sideForm2.innerHTML += " - " + textArrayAout[i] + " : " + textArrayBout[i] + "<br>";
+                    out += encodeURIComponent(textArrayAout[i] + " : " + textArrayBout[i]) + "%0A";
+                };
+                var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
+                sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
+            }
+        }
+
+        function chooseone(f){
+            save();
+            textArrayAout = textArrayAin;
+            textArrayBout = textArrayBin;
+            sideForm1.innerHTML = "Plain Text Format<br>";
+            sideForm1.innerHTML += new Date().toLocaleString()+"<br>=================<br>";
+            sideForm2.innerHTML = "## Mark Down Format (?)<br>## ";
+            sideForm2.innerHTML += new Date().toLocaleString()+"<br><br>---<br>";
+            if(textArrayBin.length>1){
+                var out ="";
+                var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
+                sideForm1.innerHTML += textArrayAin[r]+" : "+textArrayBin[r]+"<br>";
+                sideForm2.innerHTML += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"<br>";
+                out = encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
+                var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
+                sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' border='0' style='WIDTH:150px; HEIGHT: 150px'></a>";
             }
         }
         function setTemplateForm(f){
@@ -262,14 +268,14 @@
             ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a>
             
             
-            <form name="buttonForm1" action="index.html">
+            <!-- <form name="buttonForm1" action="index.html">
                 <div class="radiobuttons">
                     <input type="radio" name="s3" id="select1" value="1" checked="">
                     <label for="select1">シャッフル</label>
                     <input type="radio" name="s3" id="select2" value="2">
                     <label for="select2">1つ選ぶ</label><br>
                 </div>
-            </form>
+            </form> -->
 
             <form name="ctrlbutton1">
                 <div class="ctrlbutton">
@@ -291,7 +297,8 @@
 
                 <form name = "shuffleForm" action="index.html">
                     <div class="shuffleButton">
-                        <button type="button" class="btn btn-danger" onclick="shuffle(inputFormB)">Let's shuffle!!!</button>
+                        <button type="button" class="btn btn-warning" onclick="shuffle(inputFormB)">シャッフル</button>
+                        <button type="button" class="btn btn-warning" onclick="chooseone(inputFormB)">1つ選ぶ</button>
                     </div>
 
                     <div class="template">
@@ -302,16 +309,16 @@
                         <a href="#" class="help1" title=
                         "使い方！！<br>
                             1. え、ボタン1個1個追加したりするのだるくね<br>
-2. 毎回同じ人たちでシャッフルするんだよなぁ...<br>
-3. そんな時にめっちゃ便利<br>
-4. 例えば、田中くんと鈴木くんと砂糖くんでシャッフルしたいなら<br>
-5. テキストエリアに<br>
-田中くん<br>
-鈴木くん<br>
-砂糖くん　と入力してSET!<br>
-6. 改行で分けてるからしっかり入れてね～<br>
-7. 終わりだよ～<br>
-(出力された結果を張り付ければ決まったメンバーがすぐセットできます)<br>">
+                            2. 毎回同じ人たちでシャッフルするんだよなぁ...<br>
+                            3. そんな時にめっちゃ便利<br>
+                            4. 例えば、田中くんと鈴木くんと砂糖くんでシャッフルしたいなら<br>
+                            5. テキストエリアに<br>
+                            田中くん<br>
+                            鈴木くん<br>
+                            砂糖くん　と入力してSET!<br>
+                            6. 改行で分けてるからしっかり入れてね～<br>
+                            7. 終わりだよ～<br>
+                            (出力された結果を張り付ければ決まったメンバーがすぐセットできます)<br>">
                             ＜使い方だよ〜(*ﾟ0ﾟ)わーお</a><br>
                         
                         <div>
