@@ -108,13 +108,22 @@ function chooseone(){
 }
 
 function janken(){
-    
-}
-
-function changeOutput(){
-    alert(sideForm2.markdownCheck.value);
-    if(sideForm2.markdownCheck.checked){
-        sideForm2.innerHTML = "<Label>結果</Label><br>";
+    save();
+    sideForm1.innerHTML = "<Label>結果</Label><br>";
+    for(var i=0; i<textArrayBin.length; i++){
+        textArrayBout[i] = Math.floor((3)*Math.random(new Date()));
+        sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
+        switch(textArrayBout[i]){
+            case 0: //グー
+                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img>";
+                break;
+            case 1: //チョキ
+                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img>";
+                break;
+            case 2: //パー
+                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img>";
+                break;
+        }
     }
 }
 
