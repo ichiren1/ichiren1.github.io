@@ -108,8 +108,11 @@ function chooseone(){
 }
 
 function janken(){
+    resetArrays();
     save();
     sideForm1.innerHTML = "<Label>結果</Label><br>";
+    sideForm2.innerHTML = "";
+    sideForm3.innerHTML = "";
     for(var i=0; i<textArrayBin.length; i++){
         textArrayBout[i] = Math.floor((3)*Math.random(new Date()));
         sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
@@ -196,9 +199,17 @@ function setTemplateForm(f){
         }
     }
 }
+
 function formReset(){
     inputFormA.innerHTML = "<input value='1'>：<br>";
     inputFormA.innerHTML += "<input value='2'>：<br>";
     inputFormB.innerHTML = "<input><br>";
     inputFormB.innerHTML += "<input><br>";
+}
+
+function resetArrays(){
+    textArrayAin = [];
+    textArrayBin = [];
+    textArrayAout = [];
+    textArrayBout = [];
 }
