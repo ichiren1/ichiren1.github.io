@@ -118,13 +118,13 @@ function janken(){
         sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
         switch(textArrayBout[i]){
             case 0: //グー
-                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img>";
+                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img><br>";
                 break;
             case 1: //チョキ
-                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img>";
+                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img><br>";
                 break;
             case 2: //パー
-                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img>";
+                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img><br>";
                 break;
         }
     }

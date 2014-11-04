@@ -161,9 +161,13 @@ core-drawer-panel[narrow] #toggleButton{
 #jankenImg{
   width: 30px;
   height: 30px;
-  margin-right: 30px;
+  /*margin-right: 30px;*/
 }
 
 #jankenLabel{
   font-size: 30;
+}
+
+.result {
+  width: 100%;
 }
