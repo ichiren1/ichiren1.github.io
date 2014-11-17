@@ -113,21 +113,94 @@ function janken(){
     sideForm1.innerHTML = "<Label>結果</Label><br>";
     sideForm2.innerHTML = "";
     sideForm3.innerHTML = "";
+    var gu=0, choki=0, pa=0;
     for(var i=0; i<textArrayBin.length; i++){
         textArrayBout[i] = Math.floor((3)*Math.random(new Date()));
         sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
         switch(textArrayBout[i]){
             case 0: //グー
                 sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img><br>";
+                gu++;
                 break;
             case 1: //チョキ
                 sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img><br>";
+                choki++;
                 break;
             case 2: //パー
                 sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img><br>";
+                pa++;
                 break;
         }
     }
+    shuffleForm.innerHTML = "<paper-button raised id='shuffleButton' onclick='shuffle()''>シャッフル</paper-button>";
+    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='chooseone()'>1つ選ぶ</paper-button>";
+    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='janken()'>じゃんけんポン</paper-button>";
+    if(textArrayBin.length > 1)
+        shuffleForm.innerHTML += "<paper-button raised id='nextButton' onClick='nextJanken("+gu+","+choki+","+pa+")'>次へ</paper-button>";
+}
+
+function nextJanken(gu, choki, pa){
+    if(gu!=0 || choki!=0 || pa!=0){
+        var tmp = [];
+        var flag = false;
+        if(gu>0 && choki>0){
+            for(var i=0; i<textArrayBin.length; i++){
+                if(textArrayBout[i] == 0){ //gu
+                    tmp.push(textArrayBin[i]);
+                    flag = true;
+                }
+            }
+        }
+        if(choki>0 && pa>0){
+            for(var i=0; i<textArrayBin.length; i++){
+                if(textArrayBout[i] == 1){ //choki
+                    tmp.push(textArrayBin[i]);
+                    flag = true;
+                }
+            }
+        }
+        if(pa>0 && gu>0){
+            for(var i=0; i<textArrayBin.length; i++){
+                if(textArrayBout[i] == 2){ //pa
+                    tmp.push(textArrayBin[i]);
+                    flag = true;
+                }
+            }
+        }
+        if(flag)
+            textArrayBin = tmp;
+    }
+    sideForm1.innerHTML = "<Label>結果</Label><br>";
+    sideForm2.innerHTML = "";
+    sideForm3.innerHTML = "";
+    var gu=0, choki=0, pa=0;
+    for(var i=0; i<textArrayBin.length; i++){
+        textArrayBout[i] = Math.floor((3)*Math.random(new Date()));
+        sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
+        if(textArrayBin.length==1){
+            sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img>勝ち<br>";
+        }else{
+            switch(textArrayBout[i]){
+                case 0: //グー
+                    sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img><br>";
+                    gu++;
+                    break;
+                case 1: //チョキ
+                    sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img><br>";
+                    choki++;
+                    break;
+                case 2: //パー
+                    sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img><br>";
+                    pa++;
+                    break;
+            }
+        }
+    }
+    shuffleForm.innerHTML = "<paper-button raised id='shuffleButton' onclick='shuffle()''>シャッフル</paper-button>";
+    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='chooseone()'>1つ選ぶ</paper-button>";
+    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='janken()'>じゃんけんポン</paper-button>";
+    if(textArrayBin.length > 1)
+        shuffleForm.innerHTML += "<paper-button raised id='nextButton' onClick='nextJanken("+gu+","+choki+","+pa+")'>次へ</paper-button>";
 }
 
 function setTemplateForm(f){
