@@ -273,6 +273,32 @@ function setTemplateForm(f){
     }
 }
 
+function omikuji(){
+    var num = Math.floor((5)*Math.random(new Date()));
+    switch(num){
+        case 0: //凶
+            sideForm1.innerHTML = "凶";
+            sideForm2.innerHTML = "凶は今日だけ"; 
+            break;
+        case 1: //末吉
+            sideForm1.innerHTML = "末吉";
+            sideForm2.innerHTML = "下から2つ目だし結構悪い方";
+            break;
+        case 2: //小吉
+            sideForm1.innerHTML = "小吉";
+            sideForm2.innerHTML = "微妙だと思うけど頑張ってほしい";
+            break;
+        case 3: //中吉
+            sideForm1.innerHTML = "中吉";
+            sideForm2.innerHTML = "無駄遣いをするとお金が減るぞい";
+            break;
+        case 4: //大吉
+            sideForm1.innerHTML = "大吉";
+            sideForm2.innerHTML = "めっっっっちゃめでたい";
+            break;
+    }
+}
+
 function formReset(){
     inputFormA.innerHTML = "<input value='1'>：<br>";
     inputFormA.innerHTML += "<input value='2'>：<br>";
