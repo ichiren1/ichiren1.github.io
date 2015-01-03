@@ -273,38 +273,6 @@ function setTemplateForm(f){
     }
 }
 
-function omikuji(){
-    var num = Math.floor((5)*Math.random(new Date()));
-    switch(num){
-        case 0: //凶
-            sideForm1.innerHTML = "凶";
-            sideForm2.innerHTML = "凶は今日だけ、ショートケーキは苺から食べると良さそう"; 
-            break;
-        case 1: //末吉
-            sideForm1.innerHTML = "末吉";
-            sideForm2.innerHTML = "下から2つ目だし結構悪い方だけど、南の方角がいい気がする。占いっぽい";
-            break;
-        case 2: //小吉
-            sideForm1.innerHTML = "小吉";
-            sideForm2.innerHTML = "しょうじき（しょうきち）いいのか悪いのかわからないし気持ち微妙だと思うけど頑張ってほしい、部屋を掃除すると漫画読み始めるから一回休み";
-            break;
-        case 3: //中吉
-            sideForm1.innerHTML = "中吉";
-            sideForm2.innerHTML = "無駄遣いをするとお金が減りそう、その前に貯金するとみんながHappy";
-            break;
-        case 4: //大吉
-            sideForm1.innerHTML = "大吉";
-            sideForm2.innerHTML = "めっっっっちゃめでたいと思う、何をやってもそこそこ上手くいったらいいなぁ";
-            break;
-    }
-
-    out = sideForm1.innerHTML + "%0A" +sideForm2.innerHTML+"%0A";
-
-    var f='http://twitter.com/?status='+out+encodeURIComponent("#HappyNewYearShuffle http://ichiren1.github.io"); 
-        sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' id='tweetButton'></a>";
-
-}
-
 function formReset(){
     inputFormA.innerHTML = "<input value='1'>：<br>";
     inputFormA.innerHTML += "<input value='2'>：<br>";
