@@ -219,6 +219,72 @@ function setTemplateForm(f){
                 inputFormA.elements[i].value = textAB[0];
                 inputFormB.elements[i].value = textAB[1];
             }else{
+                if( /poj/){ //prefectures of japan
+                    for(var j=0; j<46; j++){
+                        inputFormA.innerHTML += "<input>：<br>";
+                        inputFormB.innerHTML += "<input><br>";
+                    }
+                    for(var j=0; j<47; j++){
+                        inputFormA.elements[j].value = j+1;
+                    }
+                    inputFormB.elements[0].value = "北海道";
+
+                    inputFormB.elements[1].value = "青森県";
+                    inputFormB.elements[2].value = "秋田県";
+                    inputFormB.elements[3].value = "岩手県";
+                    inputFormB.elements[4].value = "山形県";
+                    inputFormB.elements[5].value = "福島県";
+                    inputFormB.elements[6].value = "宮城県";
+
+                    inputFormB.elements[7].value = "茨城県";
+                    inputFormB.elements[8].value = "栃木県";
+                    inputFormB.elements[9].value = "群馬県";
+                    inputFormB.elements[10].value = "埼玉県";
+                    inputFormB.elements[11].value = "千葉県";
+                    inputFormB.elements[12].value = "東京都";
+                    inputFormB.elements[13].value = "神奈川県";
+
+                    inputFormB.elements[14].value = "新潟県";
+                    inputFormB.elements[15].value = "富山県";
+                    inputFormB.elements[16].value = "石川県";
+                    inputFormB.elements[17].value = "福井県";
+                    inputFormB.elements[18].value = "山梨県";
+                    inputFormB.elements[19].value = "長野県";
+                    inputFormB.elements[20].value = "岐阜県";
+                    inputFormB.elements[21].value = "静岡県";
+                    inputFormB.elements[22].value = "愛知県";
+
+                    inputFormB.elements[23].value = "三重県";
+                    inputFormB.elements[24].value = "滋賀県";
+                    inputFormB.elements[25].value = "京都府";
+                    inputFormB.elements[26].value = "大阪府";
+                    inputFormB.elements[27].value = "兵庫県";
+                    inputFormB.elements[28].value = "奈良県";
+                    inputFormB.elements[29].value = "和歌山県";
+
+                    inputFormB.elements[30].value = "鳥取県";
+                    inputFormB.elements[31].value = "島根県";
+                    inputFormB.elements[32].value = "岡山県";
+                    inputFormB.elements[33].value = "広島県";
+                    inputFormB.elements[34].value = "山口県";
+
+                    inputFormB.elements[35].value = "徳島県";
+                    inputFormB.elements[36].value = "香川県";
+                    inputFormB.elements[37].value = "愛媛県";
+                    inputFormB.elements[38].value = "高知県";
+
+                    inputFormB.elements[39].value = "福岡県";
+                    inputFormB.elements[40].value = "佐賀県";
+                    inputFormB.elements[41].value = "長崎県";
+                    inputFormB.elements[42].value = "熊本県";
+                    inputFormB.elements[43].value = "大分県";
+                    inputFormB.elements[44].value = "宮崎県";
+                    inputFormB.elements[45].value = "鹿児島県";
+
+                    inputFormB.elements[46].value = "沖縄県";
+                    break;
+
+                }
                 if( /We are rootbeer/.test(textArray[i])) {
                     for(var j=0; j<7; j++){
                         inputFormA.innerHTML += "<input>：<br>";
