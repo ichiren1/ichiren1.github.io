@@ -53,7 +53,7 @@ function set(f){
             inputFormB.elements[i].value = "";
         }
     }
-} 
+}
 function shuffle(){
     var nB = 0;
     var sideForm3_f = false;
@@ -83,7 +83,7 @@ function shuffle(){
             out += encodeURIComponent(textArrayAout[i] + " : " + textArrayBout[i]) + "%0A";
         };
 
-        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
+        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' id='tweetButton'></a>";
     }
 }
@@ -102,7 +102,7 @@ function chooseone(){
         sideForm1.plainOutput.value += textArrayAin[r]+" : "+textArrayBin[r]+"\n";
         sideForm2.markdownOutput.value += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"\n";
         out = encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
-        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io"); 
+        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png'  id='tweetButton'></a>";
     }
 }
@@ -219,7 +219,7 @@ function setTemplateForm(f){
                 inputFormA.elements[i].value = textAB[0];
                 inputFormB.elements[i].value = textAB[1];
             }else{
-                if( /poj/){ //prefectures of japan
+                if( /poj/.test(textArray[i])){ //prefectures of japan
                     for(var j=0; j<46; j++){
                         inputFormA.innerHTML += "<input>：<br>";
                         inputFormB.innerHTML += "<input><br>";
@@ -325,7 +325,7 @@ function setTemplateForm(f){
                 if( /:/.test(textArray[i])) { //hankaku
                     var textAB = textArray[i].split(":");
                     inputFormA.elements[i].value = textAB[0];
-                    inputFormB.elements[i].value = textAB[1]; 
+                    inputFormB.elements[i].value = textAB[1];
                 }else if(/：/.test(textArray[i])){//zenkaku
                     var textAB = textArray[i].split("：");
                     inputFormA.elements[i].value = textAB[0];
