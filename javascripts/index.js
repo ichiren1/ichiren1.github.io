@@ -94,7 +94,8 @@ function chooseone(){
     textArrayBout = textArrayBin;
     sideForm1.innerHTML = "<Label>結果</Label><br><textarea name='plainOutput' id='plainOutput' style='height:"+(textArrayBout.length+3)+"em'></textarea>";
     sideForm1.plainOutput.value = new Date().toLocaleString()+"\n=================\n";
-    sideForm2.innerHTML = "<Label>Markdown</Label><br><textarea name='markdownOutput' id='markdownOutput' style='height:"+(textArrayBout.length+5)+"em'></textarea>";
+    sideForm2.innerHTML =
+    "<Label>Markdown</Label><br><textarea name='markdownOutput' id='markdownOutput' style='height:"+(textArrayBout.length+5)+"em'></textarea>";
     sideForm2.markdownOutput.value = new Date().toLocaleString()+"\n\n---\n";
     if(textArrayBin.length>1){
         var out ="";
@@ -102,7 +103,12 @@ function chooseone(){
         sideForm1.plainOutput.value += textArrayAin[r]+" : "+textArrayBin[r]+"\n";
         sideForm2.markdownOutput.value += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"\n";
         out = encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
-        var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
+        var calcedArray = calcRatioOfTextArray(textArrayBin);
+        var ratioOut="";
+        for( var key in calcedArray ){
+            ratioOut += key + "%20" + (calcedArray[key]*100).toFixed(1)+"%25"+"%0A";
+        }
+        var f='http://twitter.com/?status='+out+ratioOut+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png'  id='tweetButton'></a>";
     }
 }
@@ -351,4 +357,21 @@ function resetArrays(){
     textArrayBin = [];
     textArrayAout = [];
     textArrayBout = [];
+}
+
+function calcRatioOfTextArray(textArray){
+    var textArrayHash = {};
+    for (var i=0; i<textArray.length; i++){
+        if(textArrayHash[textArray[i]] > 0){
+            textArrayHash[textArray[i]] += 1;
+        }else{
+            textArrayHash[textArray[i]] = 1;
+        }
+    }
+
+    for( var key in textArrayHash ){
+        textArrayHash[key] = textArrayHash[key]/textArray.length;
+    }
+    return textArrayHash;
+
 }
