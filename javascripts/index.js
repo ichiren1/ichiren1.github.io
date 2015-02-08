@@ -294,6 +294,20 @@ function setTemplateForm(f){
                     break;
 
                 }
+		if( /course/.test(textArray[i])) {
+                    for(var j=0; j<3; j++){
+                        inputFormA.innerHTML += "<input>:<br>";
+                        inputFormB.innerHTML += "<input><br>";
+                    }
+                    for(var j=0; j<4; j++){
+                        inputFormA.elements[j].value = j+1;
+                    }
+                    inputFormB.elements[0].value = "情報システムコース";
+                    inputFormB.elements[1].value = "情報デザインコース";
+                    inputFormB.elements[2].value = "複雑系コース";
+                    inputFormB.elements[3].value = "知能システムコース";
+                    break;
+                }
                 if( /We are rootbeer/.test(textArray[i])) {
                     for(var j=0; j<7; j++){
                         inputFormA.innerHTML += "<input>：<br>";
