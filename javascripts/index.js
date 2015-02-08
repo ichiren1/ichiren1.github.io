@@ -294,7 +294,7 @@ function setTemplateForm(f){
                     break;
 
                 }
-		if( /course/.test(textArray[i])) {
+        if( /course/.test(textArray[i])) {
                     for(var j=0; j<3; j++){
                         inputFormA.innerHTML += "<input>:<br>";
                         inputFormB.innerHTML += "<input><br>";
@@ -402,6 +402,7 @@ function getAllCandidates(textArray){
                 candidates += "%2C%20";
         }else{
             candidates += "...";
+            break;
         }
     }
     return candidates+"%0A";
