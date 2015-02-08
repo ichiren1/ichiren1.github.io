@@ -3,6 +3,8 @@ var textArrayBin = [];
 var textArrayAout = [];
 var textArrayBout = [];
 var selectedMode;
+var usedTemplate;
+
 function addForm() {
     save();
     inputFormA.innerHTML += "<input>：<br>";
@@ -102,13 +104,14 @@ function chooseone(){
         var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
         sideForm1.plainOutput.value += textArrayAin[r]+" : "+textArrayBin[r]+"\n";
         sideForm2.markdownOutput.value += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"\n";
-        out = encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
-        var calcedArray = calcRatioOfTextArray(textArrayBin);
-        var ratioOut="";
-        for( var key in calcedArray ){
-            ratioOut += key + "%20" + (calcedArray[key]*100).toFixed(1)+"%25"+"%0A";
-        }
-        var f='http://twitter.com/?status='+out+ratioOut+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
+        out = "==選ばれたやつ==%0A";
+        out += encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
+        // var calcedArray = calcRatioOfTextArray(textArrayBin);
+        // var ratioOut="%0Aーーーーー%0A";
+        // for( var key in calcedArray ){
+        //     ratioOut += key + "%20" + (calcedArray[key]*100).toFixed(1)+"%25"+"%0A";
+        // }
+        var f='http://twitter.com/?status='+out+getAllCandidates(textArrayBin)+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png'  id='tweetButton'></a>";
     }
 }
@@ -374,4 +377,18 @@ function calcRatioOfTextArray(textArray){
     }
     return textArrayHash;
 
+}
+
+function getAllCandidates(textArray){
+    var candidates = "==候補==%0A";
+    for(var i=0; i<textArray.length; i++){
+        if(candidates.length + textArray[i].length < 50){
+            candidates += textArray[i];
+            if(i != textArray.length-1)
+                candidates += "%2C%20";
+        }else{
+            candidates += "...";
+        }
+    }
+    return candidates+"%0A";
 }
