@@ -433,12 +433,16 @@ function getRecipes(index){
   }
   uri += "?order=date&page="
   for(var i=1, count=0; i<=3; i++){ //30件
-    console.log(index);
     $.get(uri+i, function(data){
       body = $(data.responseText).find('.recipe-title').each(function(){
         if($(this).attr('data-track-action') != "Click"){
           if(count == index){
             sideForm1.innerHTML = "<a href='"+$(this).attr('href')+"'><h1>"+$(this).text()+"</h1></a>";
+            $.get($(this).attr('href'), function(d){
+              c = $(d.responseText).find('#main-photo').each(function(){
+                sideForm2.innerHTML = "<img src='"+$(this).children().attr('src')+"'  id='recipe_photo'></img>"
+              });
+            });
           }
           count++
         }
