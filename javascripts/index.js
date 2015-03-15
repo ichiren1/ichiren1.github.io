@@ -4,6 +4,8 @@ var textArrayAout = [];
 var textArrayBout = [];
 var selectedMode;
 var usedTemplate;
+var recipe_titles = new Array();
+var recipe_materials = new Array();
 
 function addForm() {
     save();
@@ -92,6 +94,15 @@ function shuffle(){
 
 function chooseone(){
     save();
+    textArray = templateForm.template.value.split("\n");
+    for (var i = 0; i < textArray.length; i++) {
+        if( /cookpad/.test(textArray[i]) ) {
+            recipe_materials = textArrayBin;
+            getRecipes(chooseRecipe());
+            return;
+        }
+    }
+
     textArrayAout = textArrayAin;
     textArrayBout = textArrayBin;
     sideForm1.innerHTML = "<Label>結果</Label><br><textarea name='plainOutput' id='plainOutput' style='height:"+(textArrayBout.length+3)+"em'></textarea>";
@@ -99,6 +110,7 @@ function chooseone(){
     sideForm2.innerHTML =
     "<Label>Markdown</Label><br><textarea name='markdownOutput' id='markdownOutput' style='height:"+(textArrayBout.length+5)+"em'></textarea>";
     sideForm2.markdownOutput.value = new Date().toLocaleString()+"\n\n---\n";
+
     if(textArrayBin.length>1){
         var out ="";
         var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
@@ -106,11 +118,6 @@ function chooseone(){
         sideForm2.markdownOutput.value += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"\n";
         out = "==選ばれたやつ==%0A";
         out += encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
-        // var calcedArray = calcRatioOfTextArray(textArrayBin);
-        // var ratioOut="%0Aーーーーー%0A";
-        // for( var key in calcedArray ){
-        //     ratioOut += key + "%20" + (calcedArray[key]*100).toFixed(1)+"%25"+"%0A";
-        // }
         var f='http://twitter.com/?status='+out+getAllCandidates(textArrayBin)+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
         sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png'  id='tweetButton'></a>";
     }
@@ -213,6 +220,15 @@ function nextJanken(gu, choki, pa){
 }
 
 function setTemplateForm(f){
+    save();
+    textArray = templateForm.template.value.split("\n");
+    for (var i = 0; i < textArray.length; i++) {
+        if( /cookpad/.test(textArray[i]) ) {
+            recipe_materials = textArrayBin;
+            getRecipes(chooseRecipe());
+            return;
+        }
+    }
     if(templateForm.template.value!=""){
         inputFormA.innerHTML = null;
         inputFormB.innerHTML = null;
@@ -406,4 +422,31 @@ function getAllCandidates(textArray){
         }
     }
     return candidates+"%0A";
+}
+
+function getRecipes(index){
+  sideForm2.innerHTML = ""
+  sideForm3.innerHTML = ""
+  uri = 'http://cookpad.com/search/';
+  for(var i=0; i<recipe_materials.length; i++){
+      uri += recipe_materials[i]+"%20";
+  }
+  uri += "?order=date&page="
+  for(var i=1, count=0; i<=3; i++){ //30件
+    console.log(index);
+    $.get(uri+i, function(data){
+      body = $(data.responseText).find('.recipe-title').each(function(){
+        if($(this).attr('data-track-action') != "Click"){
+          if(count == index){
+            sideForm1.innerHTML = "<a href='"+$(this).attr('href')+"'><h1>"+$(this).text()+"</h1></a>";
+          }
+          count++
+        }
+      });
+    });
+  }
+}
+
+function chooseRecipe(){
+  return index = Math.floor((30)*Math.random(new Date()));
 }
