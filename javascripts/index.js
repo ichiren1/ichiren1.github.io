@@ -94,12 +94,14 @@ function shuffle(){
 
 function chooseone(){
     save();
-    textArray = templateForm.template.value.split("\n");
-    for (var i = 0; i < textArray.length; i++) {
-        if( /cookpad/.test(textArray[i]) ) {
-            recipe_materials = textArrayBin;
-            getRecipes(chooseRecipe());
-            return;
+    if(templateForm.elements.length != 0){
+        textArray = templateForm.template.value.split("\n");
+        for (var i = 0; i < textArray.length; i++) {
+            if( /cookpad/.test(textArray[i]) ) {
+                recipe_materials = textArrayBin;
+                getRecipes(chooseRecipe());
+                return;
+            }
         }
     }
 
@@ -431,8 +433,21 @@ function getRecipes(index){
   for(var i=0; i<recipe_materials.length; i++){
       uri += recipe_materials[i]+"%20";
   }
-  uri += "?order=date&page="
-  for(var i=1, count=0; i<=3; i++){ //30件
+  $.get(uri, function(data){
+      body = $(data.responseText).find('.count');
+      var num = body.text().replace("品","")
+      num = num.replace(",", "")
+      for(var i=1; i<num.length; i++){
+          if (num[i] == "\n"){
+              num = num.slice(1, i);
+              break;
+          }
+      }
+      console.log(num);
+  });
+  uri += "?order=date&page=";
+  var count=0;
+  for(var i=1; i<=3; i++){ //30件
     $.get(uri+i, function(data){
       body = $(data.responseText).find('.recipe-title').each(function(){
         if($(this).attr('data-track-action') != "Click"){
@@ -448,6 +463,9 @@ function getRecipes(index){
         }
       });
     });
+    if(count == 0){
+        sideForm1.innerHTML = "検索中です..."
+    }
   }
 }
 
