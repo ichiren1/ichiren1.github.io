@@ -1,3 +1,11 @@
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link media="only screen and (max-device-width:480px)"
+href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
+<link media="screen and (min-device-width:481px)" href="stylesheets/index.css" type="text/css" rel="stylesheet" />
+<!--[if IE]>
+<link href="design.css" type="text/css" rel="stylesheet" />
+<![endif]-->
 
 <!doctype html>
 <!--
@@ -10,7 +18,7 @@ license that can be found in the LICENSE file.
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes"> -->
 
   <title>いちれんシャッフル</title>
 
@@ -26,7 +34,7 @@ license that can be found in the LICENSE file.
   <link href="bower_components/core-header-panel/core-header-panel.html" rel="import">
   <link href="bower_components/core-toolbar/core-toolbar.html" rel="import">
   <link href="bower_components/core-icon-button/core-icon-button.html" rel="import">
-  <link href="stylesheets/index.css" rel="stylesheet">
+
 <script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="javascripts/jquery.xdomainajax.js"></script>
 </head>
@@ -46,6 +54,7 @@ license that can be found in the LICENSE file.
 <body unresolved >
   <section main>
     <core-icon-button icon="arrow-back" id="toggleButton" onclick="document.querySelector('core-drawer-panel').togglePanel();"></core-icon-button>
+</core-drawer-panel>
     <div id="title" horizontal layout>
         <h1 >便利なシャッフル！</h1>
         <!-- <a href="/tutorial.html" id="tutorialLink" target="_blank">使い方</a> -->
@@ -69,7 +78,7 @@ license that can be found in the LICENSE file.
                 <input value="2"></input>
             </div>
         </form>
-        <form name = "inputFormB" action="index.html" >
+        <form name = "inputFormB" id="formb" action="index.html" >
             <div>
                 <input>
             </div>
@@ -77,7 +86,7 @@ license that can be found in the LICENSE file.
                 <input>
             </div>
         </form>
-        <form name = "shuffleForm">
+        <form name = "shuffleForm" id="forms">
           <paper-button raised id="shuffleButton" onclick="shuffle()">シャッフル</paper-button>
           <paper-button raised id="shuffleButton" onclick="chooseone()">1つ選ぶ</paper-button>
           <paper-button raised id="shuffleButton" onclick="janken()">じゃんけんポン</paper-button>
@@ -99,7 +108,6 @@ license that can be found in the LICENSE file.
       <form name="sideForm3"></form>
     </div>
   </div>
-</core-drawer-panel>
 
 </body>
 </html>

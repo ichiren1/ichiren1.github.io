@@ -9,7 +9,7 @@ var recipe_materials = new Array();
 
 function addForm() {
     save();
-    inputFormA.innerHTML += "<input>：<br>";
+    inputFormA.innerHTML += "<input><br>";
     inputFormB.innerHTML += "<input><br>";
     set();
 }
@@ -21,7 +21,7 @@ function deleteForm() {
         inputFormA.innerHTML = "";
         inputFormB.innerHTML = "";
         for (var i = 0; i < nA-1; i++) {
-            inputFormA.innerHTML += "<input>：<br>";
+            inputFormA.innerHTML += "<input><br>";
             inputFormB.innerHTML += "<input><br>";
         }
         set();
@@ -237,7 +237,7 @@ function setTemplateForm(f){
         textArray = templateForm.template.value.split("\n");
         var n = textArray.length-inputFormB.elements.length;
         for (var i=0; i < n; i++){
-            inputFormA.innerHTML += "<input>：<br>";
+            inputFormA.innerHTML += "<input><br>";
             inputFormB.innerHTML += "<input><br>";
         }
         for (var i = 0; i < textArray.length; i++) {
@@ -248,7 +248,7 @@ function setTemplateForm(f){
             }else{
                 if( /poj/.test(textArray[i])){ //prefectures of japan
                     for(var j=0; j<46; j++){
-                        inputFormA.innerHTML += "<input>：<br>";
+                        inputFormA.innerHTML += "<input><br>";
                         inputFormB.innerHTML += "<input><br>";
                     }
                     for(var j=0; j<47; j++){
@@ -328,7 +328,7 @@ function setTemplateForm(f){
                 }
                 if( /We are rootbeer/.test(textArray[i])) {
                     for(var j=0; j<7; j++){
-                        inputFormA.innerHTML += "<input>：<br>";
+                        inputFormA.innerHTML += "<input><br>";
                         inputFormB.innerHTML += "<input><br>";
                     }
                     for(var j=0; j<8; j++){
@@ -346,7 +346,7 @@ function setTemplateForm(f){
                 }
                 if( /Pizza/.test(textArray[i]) ) {
                     for(var j=0; j<8; j++){
-                        inputFormA.innerHTML += "<input>：<br>";
+                        inputFormA.innerHTML += "<input><br>";
                         inputFormB.innerHTML += "<input><br>";
                     }
                     for(var j=0; j<9; j++){
@@ -381,8 +381,8 @@ function setTemplateForm(f){
 }
 
 function formReset(){
-    inputFormA.innerHTML = "<input value='1'>：<br>";
-    inputFormA.innerHTML += "<input value='2'>：<br>";
+    inputFormA.innerHTML = "<input value='1'><br>";
+    inputFormA.innerHTML += "<input value='2'><br>";
     inputFormB.innerHTML = "<input><br>";
     inputFormB.innerHTML += "<input><br>";
 }
