@@ -1,8 +1,5 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="format-detection" content="telephone=no">
-<link media="only screen and (max-device-width:480px)"
-href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
-<link media="screen and (min-device-width:481px)" href="stylesheets/index.css" type="text/css" rel="stylesheet" />
 <!--[if IE]>
 <link href="design.css" type="text/css" rel="stylesheet" />
 <![endif]-->
@@ -21,7 +18,8 @@ license that can be found in the LICENSE file.
   <!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes"> -->
 
   <title>いちれんシャッフル</title>
-
+  <script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
+  <script type="text/javascript" src="javascripts/jquery.xdomainajax.js"></script>
   <script src="bower_components/platform/platform.js"></script>
   <script src="javascripts/index.js"></script>
 
@@ -29,14 +27,29 @@ license that can be found in the LICENSE file.
   <link href="bower_components/core-icon/core-icon.html" rel="import">
   <link href="bower_components/core-icons/core-icons.html" rel="import">
   <link href="bower_components/paper-button/paper-button.html" rel="import">
+  <link href="bower_components/core-icon-button/core-icon-button.html" rel="import">
   <link href="bower_components/paper-checkbox/paper-checkbox.html" rel="import">
+  <link href="bower_components/paper-input/paper-input.html" rel="import">
+  <link href="bower_components/paper-input/paper-input-decorator.html" rel="import">
+  <link href="bower_components/paper-input/paper-autogrow-textarea.html" rel="import">
+  <link href="bower_components/paper-dialog/paper-dialog.html" rel="import">
+  <link href="bower_components/paper-dialog/paper-action-dialog.html" rel="import">
+  <link href="bower_components/paper-tabs/paper-tabs.html" rel="import">
+  <link href="bower_components/paper-fab/paper-fab.html" rel="import">
+  <link rel="import" href="bower_components/core-icon/core-icon.html">
+  <link rel="import" href="bower_components/core-icons/core-icons.html">
+  <link rel="import" href="bower_components/core-icons/image-icons.html">
   <link href="bower_components/core-drawer-panel/core-drawer-panel.html" rel="import">
   <link href="bower_components/core-header-panel/core-header-panel.html" rel="import">
   <link href="bower_components/core-toolbar/core-toolbar.html" rel="import">
-  <link href="bower_components/core-icon-button/core-icon-button.html" rel="import">
+  <link href="bower_components/core-overlay/core-overlay.html" rel="import">
+  <link href="bower_components/paper-shadow/paper-shadow.html" rel="import">
+  <link href="bower_components/paper-icon-button/paper-icon-button.html" rel="import">
 
-<script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="javascripts/jquery.xdomainajax.js"></script>
+  <link media="only screen and (max-device-width:480px)"
+href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
+<link media="screen and (min-device-width:481px)" href="stylesheets/index.css" type="text/css" rel="stylesheet" />
+  
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -46,78 +59,81 @@ license that can be found in the LICENSE file.
   ga('create', 'UA-52369810-1', 'auto');
   ga('send', 'pageview');
 
+
+
 </script>
 </head>
-<script>
-  function showTemplateMode(){
-    if(templateForm.elements.length == 0){
-      templateForm.innerHTML = "<paper-button id='templateButton1' onclick='showTemplateMode(this.form)'>テンプレートモード△</paper-button>";
-      templateForm.innerHTML += "<paper-button raised id='setButton' onclick='setTemplateForm(this.form)'>セット</paper-button><br>";
-      templateForm.innerHTML += "<textarea name='template' id='template'></textarea>";
-    }else {
-      templateForm.innerHTML = "<paper-button id='templateButton' onclick='showTemplateMode(this.form)'>テンプレートモード▽</paper-button><br>";
-    }
-  }
-</script>
 
-<core-drawer-panel rightDrawer>
-<body unresolved >
-  <section main>
-    <core-icon-button icon="arrow-back" id="toggleButton" onclick="document.querySelector('core-drawer-panel').togglePanel();"></core-icon-button>
-</core-drawer-panel>
-    <div id="title" horizontal layout>
-        <h1 >便利なシャッフル！</h1>
-        <!-- <a href="/tutorial.html" id="tutorialLink" target="_blank">使い方</a> -->
-        <!-- <a href="/before.html" id="tutorialLink" >前のやつに戻す</a> -->
+<body unresolved>
+    <core-toolbar>
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0; " width=50px src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+    <div flex>ichiren's shuffle</div>
+      <paper-icon-button title='shuffle'   src='images/shuffle.png'   id='shuffleButton'   class='menuButton' onclick="shuffle()"></paper-icon-button>
+      <paper-icon-button title='chooseone' src='images/chooseone.png' id='chooseoneButton' class='menuButton' onclick='chooseone()'></paper-icon-button>
+      <paper-icon-button title='janken'    src='images/janken.png'    id='jankenButton'    class='menuButton' onclick='janken()'></paper-icon-button>
+
+      <!-- <paper&#45;ripple class="circle recenteringTouch" fit=""></paper&#45;ripple> -->
+    <div>
+        <!-- <paper-fab Regular id='resultButton' class='menuButton' onclick="debug();document.querySelector('#resultDialog').toggle()" icon='visibility'></paper&#45;fab> -->
     </div>
-    <dic id="all"></div>
-    <div class="content">
-      <a href="http://qiita.com/ichiren1/items/f4525e531fa06ae84cd4">使い方</a>
-      <form name="ctrlbutton1" id="ctrlbutton">
-        <paper-button raised id="addButton" onclick="addForm()">足す(＋)</paper-button>
-        <paper-button raised id="deleteButton" onclick="deleteForm()">減らす(―)</paper-button>
-        <paper-button raised id="resetButton" onclick="formReset()">リセット</paper-button>
-      </form>
+    <paper-shadow z="1" />
+  </core-toolbar>
 
+  <div class="card">
+    <paper-shadow z="1" />
+<!--      <a href="http://qiita.com/ichiren1/items/f4525e531fa06ae84cd4">使い方</a>-->
       <div>
-        <form name = "inputFormA" action="index.html" style="float:left">
-            <div>
-                <input value="1"></input>
-            </div>
-            <div>
-                <input value="2"></input>
-            </div>
-        </form>
-        <form name = "inputFormB" id="formb" action="index.html" >
-            <div>
-                <input>
-            </div>
-            <div>
-                <input>
-            </div>
-        </form>
-        <form name = "shuffleForm" id="forms">
-          <paper-button raised id="shuffleButton" onclick="shuffle()">シャッフル</paper-button>
-          <paper-button raised id="shuffleButton" onclick="chooseone()">1つ選ぶ</paper-button>
-          <paper-button raised id="shuffleButton" onclick="janken()">じゃんけんポン</paper-button>
+        <paper-icon-button title="add"    icon="add"    class="menuButton" id='addButton'      onclick='addForm()'></paper-icon-button>
+        <paper-icon-button title="remove" icon="remove" class='menuButton' id='decreaseButton' onclick='decreaseForm()'></paper-icon-button>
+        <paper-icon-button title="clear"  icon="clear"  class='menuButton' id='resetButton'    onclick='resetForm()'></paper-icon-button>
+        <form name = "inputForm">
+          <div><paper-input id="input1" class="inputForm" label="候補1" floatingLabel></paper-input></div>
+          <div><paper-input id="input2" class="inputForm" label="候補2" floatingLabel></paper-input></div>
         </form>
       </div>
 
       <div>
-        <form name="templateForm">
-          <paper-button id="templateButton" onclick="showTemplateMode(this.form)">テンプレートモード▽</paper-button><br>
-        </form>
+        <paper-input-decorator label='テンプレートモード' floatingLabel>
+          <paper-autogrow-textarea>
+            <textarea id='templateTextarea'></textarea>
+          </paper-autogrow-textarea>
+        </paper-input-decorator>
+        <div id="templageButtons">
+          <paper-fab mini icon='input' id='setButton' onclick='setTemplateForm()'></paper-fab>
+          <paper-fab mini icon='save' id='saveButton' onclick='document.querySelector("#presetDialog").toggle()'></paper-fab>
+          <paper-fab mini icon='list' id='listButton' onclick='document.querySelector("#savedList").toggle();showPresetList()'></paper-fab>
+        </div>
+        <div id='reultDialogDiv'>
+          <paper-dialog heading='Result'
+ transition='core-transition-bottom' id="resultDialog">
+            <div id='resultDialogContent'>
+              出力がありません
+            </div>
+          </paper-dialog>
+        </div>
+        <paper-action-dialog heading='テンプレートを保存する'
+ transition='core-transition-bottom' id="presetDialog">
+          <paper-input label="保存名" required id="presetName"></paper-input>
+          <paper-input-decorator label='候補' floatingLabel>
+            <paper-autogrow-textarea>
+              <textarea id='presetTextarea'></textarea>
+            </paper-autogrow-textarea>
+          </paper-input-decorator>
+          <paper-button affirmative onclick='saveFlagOff()'>キャンセル</paper-button>
+          <paper-button affirmative autofocus onclick='saveFlagOn()'>保存する</paper-button>
+        </paper-action-dialog>
+        <paper-action-dialog heading='保存したリスト'
+ transition='core-transition-bottom' id="savedList">
+          <div id='savedListDialog'></div>
+        </paper-action-dialog>
       </div>
-    </div>
-  </section> <!-- /main -->
-  <div drawer>
-    <div class="result">
-      <form name="sideForm1">
-      </form>
-      <form name="sideForm2"></form>
-      <form name="sideForm3"></form>
     </div>
   </div>
-
 </body>
+<script>
+  var dialog = document.querySelector('#presetDialog');
+  dialog.addEventListener('core-overlay-close-completed', function() {
+    savePreset();
+  });
+</script>
 </html>
