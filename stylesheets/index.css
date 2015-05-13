@@ -72,15 +72,15 @@ core-toolbar {
 }
 
 #shuffleButton{
-  background: #2196F3;
+  /* background: #2196F3; */
 }
 
 #chooseoneButton{
-  background: #2196F3;
+  /* background: #2196F3; */
 }
 
 #jankenButton{
-  background: #2196F3;
+  /* background: #2196F3; */
   margin-right: 10px;
 }
 
@@ -89,15 +89,15 @@ core-toolbar {
 }
 
 #setButton{
-  background: #4CAF50;
+  background: #FFC107;
 }
 
 #saveButton{
-  background: #4CAF50;
+  background: #FFC107;
 }
 
 #listButton{
-  background: #4CAF50;
+  background: #FFC107;
 }
 
 .menuButton{
