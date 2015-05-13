@@ -43,6 +43,8 @@ license that can be found in the LICENSE file.
   <link href="bower_components/core-header-panel/core-header-panel.html" rel="import">
   <link href="bower_components/core-toolbar/core-toolbar.html" rel="import">
   <link href="bower_components/core-overlay/core-overlay.html" rel="import">
+  <link href="bower_components/paper-shadow/paper-shadow.html" rel="import">
+  <link href="bower_components/paper-icon-button/paper-icon-button.html" rel="import">
 
   <link media="only screen and (max-device-width:480px)"
 href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
@@ -57,28 +59,33 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
   ga('create', 'UA-52369810-1', 'auto');
   ga('send', 'pageview');
 
+
+
 </script>
 </head>
 
-<body unresolved >
-  <core-toolbar>
+<body unresolved>
+    <core-toolbar>
     <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0; " width=50px src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
     <div flex>ichiren's shuffle</div>
+      <paper-icon-button title='shuffle'   src='images/shuffle.png'   id='shuffleButton'   class='menuButton' onclick="shuffle()"></paper-icon-button>
+      <paper-icon-button title='chooseone' src='images/chooseone.png' id='chooseoneButton' class='menuButton' onclick='chooseone()'></paper-icon-button>
+      <paper-icon-button title='janken'    src='images/janken.png'    id='jankenButton'    class='menuButton' onclick='janken()'></paper-icon-button>
+
+      <!-- <paper&#45;ripple class="circle recenteringTouch" fit=""></paper&#45;ripple> -->
     <div>
-        
-        <paper-fab mini src='images/shuffle.png' id='shuffleButton' class='menuButton' onclick="shuffle()"></paper-fab>
-        <paper-fab mini src='images/chooseone.png' id='chooseoneButton' class='menuButton' onclick='chooseone()'></paper-fab>
-        <paper-fab mini src='images/janken.png' id='jankenButton' class='menuButton' onclick='janken()'></paper-fab>
-        <paper-fab mini id='resultButton' class='menuButton' onclick="debug();document.querySelector('#resultDialog').toggle()" icon='visibility'>
-        </paper-fab>
+        <!-- <paper-fab Regular id='resultButton' class='menuButton' onclick="debug();document.querySelector('#resultDialog').toggle()" icon='visibility'></paper&#45;fab> -->
     </div>
+    <paper-shadow z="1" />
   </core-toolbar>
-  <div class="content">
+
+  <div class="card">
+    <paper-shadow z="1" />
 <!--      <a href="http://qiita.com/ichiren1/items/f4525e531fa06ae84cd4">使い方</a>-->
       <div>
-        <core-icon-button icon='add' class='menuButton' id='addButton' onclick='addForm()'></core-icon-button>
-        <core-icon-button mini icon='remove' class='menuButton' id='decreaseButton' onclick='decreaseForm()'></core-icon-button>
-        <core-icon-button mini icon='clear' id='resetButton' class='menuButton' onclick='resetForm()'></core-icon-button>
+        <paper-icon-button title="add"    icon="add"    class="menuButton" id='addButton'      onclick='addForm()'></paper-icon-button>
+        <paper-icon-button title="remove" icon="remove" class='menuButton' id='decreaseButton' onclick='decreaseForm()'></paper-icon-button>
+        <paper-icon-button title="clear"  icon="clear"  class='menuButton' id='resetButton'    onclick='resetForm()'></paper-icon-button>
         <form name = "inputForm">
           <div><paper-input id="input1" class="inputForm" label="候補1" floatingLabel></paper-input></div>
           <div><paper-input id="input2" class="inputForm" label="候補2" floatingLabel></paper-input></div>

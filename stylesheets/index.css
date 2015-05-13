@@ -7,14 +7,29 @@ paper-button {
 body {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
   font-size: 14px;
+  background-color:#eaeaea;
   margin: 0;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
   overflow: auto;
 }
 
+core-toolbar {
+    background-color: #9e9e9e;
+    color:            #ffffff;
+}
 .content{
   margin: 20px 0;
+}
+
+.card {
+  background:    white;
+  box-sizing:    border-box;
+  width:         70%;
+  height:        70%;
+  margin:        0 auto;
+  padding:       18px;
+  border-radius: 2px;
 }
 
 #tweetButton{
@@ -57,15 +72,15 @@ body {
 }
 
 #shuffleButton{
-  background: #2196F3;
+  /* background: #2196F3; */
 }
 
 #chooseoneButton{
-  background: #2196F3;
+  /* background: #2196F3; */
 }
 
 #jankenButton{
-  background: #2196F3;
+  /* background: #2196F3; */
   margin-right: 10px;
 }
 
@@ -74,15 +89,15 @@ body {
 }
 
 #setButton{
-  background: #4CAF50;
+  background: #FFC107;
 }
 
 #saveButton{
-  background: #4CAF50;
+  background: #FFC107;
 }
 
 #listButton{
-  background: #4CAF50;
+  background: #FFC107;
 }
 
 .menuButton{
