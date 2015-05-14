@@ -1,6 +1,18 @@
+input {
+  height: 30px;
+  width: 30%;
+  margin: 5px 0px;
+}
+
+.content{
+  margin-top: 10px;
+  background-color: #ffffff;
+  width: 80%;
+  color: #4f7dc9;
+}
+
 paper-button {
-  margin: 10px 0px;
-  margin-right: 10px;
+  margin: 5px 0px;
   background-color: #ffffff;
 }
 
@@ -8,17 +20,14 @@ body {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
   font-size: 14px;
   margin: 0;
+  padding: 24px;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
   overflow: auto;
 }
 
-section {
-  padding: 20px 0;
-}
 
 section > div {
-  padding: 14px;
   font-size: 16px;
 }
 
@@ -43,6 +52,92 @@ paper-button.blue-ripple::shadow #ripple {
   color: #4285f4;
 }
 
+[drawer]{
+  background-color: #b99588;
+  border-right: 1px solid #ccc;
+  padding-right: 10%;
+  overflow: auto;
+}
+
+[main]{
+  background-color: #4f7dc9;
+  padding-left: 10px;
+  overflow: auto;
+}
+
+#toggleButton{
+  display: none;
+}
+
+core-drawer-panel[narrow] #toggleButton{
+  display: inline-block;
+  width: 50px;
+  float: right;
+  background-color: #afccfb;
+  color: #4f7dc9;
+  text-align: center;
+  padding: 50% 0;
+}
+
+#title{
+  width: 80%;
+  height: 50px;
+  color: #4f7dc9;
+  background-color: #afccfb;
+  position:relative;
+}
+
+#ctrlbutton{
+}
+
+#addButton{
+  background-color: #afccfb;
+}
+
+#deleteButton{
+  background-color: #afccfb;
+}
+
+#resetButton {
+  background-color: #fa9494;
+}
+
+#shuffleButton {
+  background-color: #afccfb;
+}
+
+#templateButton{
+  /*background-color: #a9a9a9;*/
+}
+
+#template{
+  width: 100%;
+  height: 5em;
+  margin-bottom: 50px;
+}
+
+#plainOutput {
+  width: 100%;
+  margin: 10px;
+}
+
+#markdownOutput {
+  width: 100%;
+  margin: 10px;
+}
+
+#markdownOutput{
+  width: 100%;
+}
+
+.result{
+  margin: 10px 5px;
+}
+
+#markdownCheck{
+  margin: 20px 10px;
+}
+
 #tweetButton{
   border: 0;
   width:150px;
@@ -51,26 +146,46 @@ paper-button.blue-ripple::shadow #ripple {
   margin-top: 50px;
 }
 
-#shuffleDate{
-  padding: 0 0 10px 0;
+#tutorialLink{
+  float: right;
+  position:absolute;
+  right: 20px;
+  bottom: 0;
 }
 
-#resultDialog{
-  padding: 5px 0;
-}
-
-.jankenImage{
+#jankenImg{
   width: 30px;
+  height: 30px;
+  /*margin-right: 30px;*/
 }
 
-#resetButton{
-  margin-right: 10px;
+#jankenLabel{
+  font-size: 30;
 }
 
-#jankenButton{
-  margin-right: 10px;
+.result {
+  width: 100%;
 }
 
-.menuButton{
-  margin-top: 10px;
+#recipe_photo{
+  width: 100%;
+}
+
+section > div{
+  padding: 0px;
+}
+
+section{
+  padding: 0px;
+}
+
+[main]{
+  padding-left: 10px;
+}
+
+#formb{
+}
+
+#forms{
+  font-size: 12px;
 }
