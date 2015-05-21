@@ -108,12 +108,11 @@ function chooseone(){
 }
 
 function janken(){
-  
+  inputArray = [];
+  outputArray = [];
+  save();
+  setResultCard();
   if(inputArray.length > 1){
-    inputArray = [];
-    outputArray = [];
-    save();
-    setResultCard();
     document.getElementById('result_output_area').innerHTML = '<div id="shuffleDate">'+new Date().toLocaleString()+'</div>';
     var gu=0, choki=0, pa=0;
     document.getElementById('result_output_area').innerHTML += '<div id="shuffleContent"></div>';
