@@ -7,48 +7,51 @@ paper-button {
 body {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
   font-size: 14px;
+  background-color:#eaeaea;
   margin: 0;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
   overflow: auto;
 }
 
-section {
-  padding: 20px 0;
+:host{
+  position: static;
 }
 
-section > div {
-  padding: 14px;
-  font-size: 16px;
+core-toolbar {
+    background-color: #1976d2;
+    color:            #ffffff;
+}
+.content{
+  margin: 20px 0;
 }
 
-paper-button.colored {
-  color: #4285f4;
-}
-
-paper-button[raised].colored {
-  background: #4285f4;
-  color: #fff;
-}
-
-paper-button.custom > core-icon {
-  margin-right: 4px;
-}
-
-paper-button.hover:hover {
-  background: #eee;
-}
-
-paper-button.blue-ripple::shadow #ripple {
-  color: #4285f4;
+.card {
+  background:    white;
+  box-sizing:    border-box;
+  width:         70%;
+  margin:        5px auto;
+  margin-bottom: 10px;
+  padding:       18px;
+  border-radius: 2px;
 }
 
 #tweetButton{
   border: 0;
-  width:150px;
-  height: 150px;
-  float: right;
-  margin-top: 50px;
+  width:20px;
+  margin: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#markdownButton{
+  border: 0;
+  width:20px;
+  margin: 5px;
+  position: absolute;
+  right: 50px;
+  top: 0;
 }
 
 #shuffleDate{
@@ -59,6 +62,21 @@ paper-button.blue-ripple::shadow #ripple {
   padding: 5px 0;
 }
 
+#resultDialog::shadow #scroller {
+  width: 100%;
+  max-height: 100px;
+}
+
+#presetDialog::shadow #scroller {
+  width: 100%;
+  max-height: 100px;
+}
+
+#savedList::shadow #scroller {
+  width: 100%;
+  max-height: 100px;
+}
+
 .jankenImage{
   width: 30px;
 }
@@ -67,10 +85,75 @@ paper-button.blue-ripple::shadow #ripple {
   margin-right: 10px;
 }
 
+#shuffleButton{
+  /* background: #2196F3; */
+}
+
+#chooseoneButton{
+  /* background: #2196F3; */
+}
+
 #jankenButton{
+  /* background: #2196F3; */
   margin-right: 10px;
 }
 
+
+#setButton{
+  background: #ff5252;
+}
+
+#saveButton{
+  background: #ff5252;
+}
+
+#listButton{
+  background: #ff5252;
+}
+
 .menuButton{
+  margin-top: 60px;
+}
+
+#templageButtons{
+  margin: 10px 0;
+  text-align: center;
+}
+
+.inputForm{
+  width: 100%;
+}
+
+.editButton{
+  color: #727272;
+}
+
+#next_janken_button{
+  border: 0;
+  margin: 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#for_preset_list{
   margin-top: 10px;
+}
+
+#setPresetButton{
+  width: 50px;
+  margin: 0;
+}
+
+#deletePresetButton{
+  width: 50px;
+  margin: 0;
+}
+
+#presetKey{
+  font-size: 20;
+}
+
+#result_output_area {
+  font-size: 16;
 }
