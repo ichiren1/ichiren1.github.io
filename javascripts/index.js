@@ -32,6 +32,7 @@ function decreaseForm() {
 function save(){
   inputArray.length = 0;
   inputtedCount = 0;
+  console.log(inputFormCount);
   for (var i = 0; i < inputFormCount; i++) {
     if(document.getElementById("input"+(i+1)).value != ""){
       inputArray.push(document.getElementById('input'+(i+1)).value);
@@ -227,8 +228,10 @@ function setTemplateForm(){
     var templateValues = document.getElementById('templateTextarea').value.split('\n');
     if(templateValues.length > 1){
       inputForm.innerHTML = "";
+      inputFormCount = 0;
       for(var i=0; i<templateValues.length; i++){
         inputForm.innerHTML += '<div><paper-input id="input'+(i+1)+'" class="inputForm" label="候補'+(i+1)+'" floatingLabel></paper-input></div>';
+        inputFormCount ++;
       }
     }else{
       resetForm();
