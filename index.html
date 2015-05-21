@@ -12,11 +12,9 @@ license that can be found in the LICENSE file.
 -->
 <html>
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes"> -->
-
   <title>いちれんシャッフル</title>
   <script type="text/javascript" src="javascripts/jquery-2.1.1.js"></script>
   <script type="text/javascript" src="javascripts/jquery.xdomainajax.js"></script>
@@ -27,6 +25,7 @@ license that can be found in the LICENSE file.
   <link href="bower_components/core-icon/core-icon.html" rel="import">
   <link href="bower_components/core-icons/core-icons.html" rel="import">
   <link href="bower_components/paper-button/paper-button.html" rel="import">
+  <link href="bower_components/paper-toggle-button/paper-toggle-button.html" rel="import">
   <link href="bower_components/core-icon-button/core-icon-button.html" rel="import">
   <link href="bower_components/paper-checkbox/paper-checkbox.html" rel="import">
   <link href="bower_components/paper-input/paper-input.html" rel="import">
@@ -49,7 +48,7 @@ license that can be found in the LICENSE file.
   <link media="only screen and (max-device-width:480px)"
 href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
 <link media="screen and (min-device-width:481px)" href="stylesheets/index.css" type="text/css" rel="stylesheet" />
-  
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -65,33 +64,27 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body unresolved>
+  <core-header-panel>
     <core-toolbar>
-    <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0; " width=50px src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
-    <div flex>ichiren's shuffle</div>
-      <paper-icon-button title='shuffle'   src='images/shuffle.png'   id='shuffleButton'   class='menuButton' onclick="shuffle()"></paper-icon-button>
-      <paper-icon-button title='chooseone' src='images/chooseone.png' id='chooseoneButton' class='menuButton' onclick='chooseone()'></paper-icon-button>
-      <paper-icon-button title='janken'    src='images/janken.png'    id='jankenButton'    class='menuButton' onclick='janken()'></paper-icon-button>
+      <a href="https://github.com/ichiren1"><img style="position: absolute; top: 0; left: 0; border: 0; " width=50px src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+      <div flex>ichiren's shuffle</div>
+        <paper-icon-button title='shuffle'   src='images/shuffle.png'   id='shuffleButton'   class='menuButton' onclick="shuffle();location='#result_card'"></paper-icon-button>
+        <paper-icon-button title='chooseone' src='images/chooseone.png' id='chooseoneButton' class='menuButton' onclick='chooseone();location="#result_card"'></paper-icon-button>
+        <paper-icon-button title='janken'    src='images/janken.png'    id='jankenButton'    class='menuButton' onclick='janken();location="#result_card"'></paper-icon-button>
 
-      <!-- <paper&#45;ripple class="circle recenteringTouch" fit=""></paper&#45;ripple> -->
-    <div>
-        <!-- <paper-fab Regular id='resultButton' class='menuButton' onclick="debug();document.querySelector('#resultDialog').toggle()" icon='visibility'></paper&#45;fab> -->
-    </div>
-    <paper-shadow z="1" />
-  </core-toolbar>
-
-  <div class="card">
-    <paper-shadow z="1" />
-<!--      <a href="http://qiita.com/ichiren1/items/f4525e531fa06ae84cd4">使い方</a>-->
+    </core-toolbar>
+    <div >
+      <paper-shadow z="1" class="card" id="inputCard"/>
+  <!--      <a href="http://qiita.com/ichiren1/items/f4525e531fa06ae84cd4">使い方</a>-->
       <div>
-        <paper-icon-button title="add"    icon="add"    class="menuButton" id='addButton'      onclick='addForm()'></paper-icon-button>
-        <paper-icon-button title="remove" icon="remove" class='menuButton' id='decreaseButton' onclick='decreaseForm()'></paper-icon-button>
-        <paper-icon-button title="clear"  icon="clear"  class='menuButton' id='resetButton'    onclick='resetForm()'></paper-icon-button>
+        <paper-icon-button title="add"    icon="add"    id='addButton'      onclick='addForm()' class='editButton'></paper-icon-button>
+        <paper-icon-button title="remove" icon="remove" id='decreaseButton'     class='editButton' onclick='decreaseForm()'></paper-icon-button>
+        <paper-icon-button title="clear"  icon="clear"  id='resetButton'        class='editButton' onclick='resetForm()'></paper-icon-button>
         <form name = "inputForm">
           <div><paper-input id="input1" class="inputForm" label="候補1" floatingLabel></paper-input></div>
           <div><paper-input id="input2" class="inputForm" label="候補2" floatingLabel></paper-input></div>
         </form>
       </div>
-
       <div>
         <paper-input-decorator label='テンプレートモード' floatingLabel>
           <paper-autogrow-textarea>
@@ -100,40 +93,16 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
         </paper-input-decorator>
         <div id="templageButtons">
           <paper-fab mini icon='input' id='setButton' onclick='setTemplateForm()'></paper-fab>
-          <paper-fab mini icon='save' id='saveButton' onclick='document.querySelector("#presetDialog").toggle()'></paper-fab>
-          <paper-fab mini icon='list' id='listButton' onclick='document.querySelector("#savedList").toggle();showPresetList()'></paper-fab>
         </div>
-        <div id='reultDialogDiv'>
-          <paper-dialog heading='Result'
- transition='core-transition-bottom' id="resultDialog">
-            <div id='resultDialogContent'>
-              出力がありません
-            </div>
-          </paper-dialog>
-        </div>
-        <paper-action-dialog heading='テンプレートを保存する'
- transition='core-transition-bottom' id="presetDialog">
-          <paper-input label="保存名" required id="presetName"></paper-input>
-          <paper-input-decorator label='候補' floatingLabel>
-            <paper-autogrow-textarea>
-              <textarea id='presetTextarea'></textarea>
-            </paper-autogrow-textarea>
-          </paper-input-decorator>
-          <paper-button affirmative onclick='saveFlagOff()'>キャンセル</paper-button>
-          <paper-button affirmative autofocus onclick='saveFlagOn()'>保存する</paper-button>
-        </paper-action-dialog>
-        <paper-action-dialog heading='保存したリスト'
- transition='core-transition-bottom' id="savedList">
-          <div id='savedListDialog'></div>
-        </paper-action-dialog>
       </div>
     </div>
-  </div>
+    <span id="for_result_card"></span>
+    <span id="for_template_card">
+      <paper-shadow z="1" class="card"/>
+      <paper-button raised toggle onclick='showTemplateMode()'>テンプレートモード</paper-button>
+      <span id="for_template_mode"></span>
+    </span>
+    
+  </core-header-panel>
 </body>
-<script>
-  var dialog = document.querySelector('#presetDialog');
-  dialog.addEventListener('core-overlay-close-completed', function() {
-    savePreset();
-  });
-</script>
 </html>

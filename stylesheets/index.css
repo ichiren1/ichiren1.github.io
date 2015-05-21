@@ -14,8 +14,12 @@ body {
   overflow: auto;
 }
 
+:host{
+  position: static;
+}
+
 core-toolbar {
-    background-color: #9e9e9e;
+    background-color: #1976d2;
     color:            #ffffff;
 }
 .content{
@@ -26,18 +30,28 @@ core-toolbar {
   background:    white;
   box-sizing:    border-box;
   width:         70%;
-  height:        70%;
-  margin:        0 auto;
+  margin:        5px auto;
+  margin-bottom: 10px;
   padding:       18px;
   border-radius: 2px;
 }
 
 #tweetButton{
   border: 0;
-  width:150px;
-  height: 150px;
-  float: right;
-  margin-top: 50px;
+  width:20px;
+  margin: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#markdownButton{
+  border: 0;
+  width:20px;
+  margin: 5px;
+  position: absolute;
+  right: 50px;
+  top: 0;
 }
 
 #shuffleDate{
@@ -84,20 +98,17 @@ core-toolbar {
   margin-right: 10px;
 }
 
-#resultButton{
-  background: #FFEB3B;
-}
 
 #setButton{
-  background: #FFC107;
+  background: #ff5252;
 }
 
 #saveButton{
-  background: #FFC107;
+  background: #ff5252;
 }
 
 #listButton{
-  background: #FFC107;
+  background: #ff5252;
 }
 
 .menuButton{
@@ -111,4 +122,34 @@ core-toolbar {
 
 .inputForm{
   width: 100%;
+}
+
+.editButton{
+  color: #727272;
+}
+
+#next_janken_button{
+  border: 0;
+  margin: 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#for_preset_list{
+  margin-top: 10px;
+}
+
+#setPresetButton{
+  width: 50px;
+  margin: 0;
+}
+
+#deletePresetButton{
+  width: 50px;
+  margin: 0;
+}
+
+#presetKey{
+  font-size: 20;
 }
