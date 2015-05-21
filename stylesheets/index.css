@@ -153,3 +153,7 @@ core-toolbar {
 #presetKey{
   font-size: 20;
 }
+
+#result_output_area {
+  font-size: 16;
+}

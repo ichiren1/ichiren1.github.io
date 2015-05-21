@@ -286,7 +286,6 @@ function changeTextFormat(){
     document.getElementById('shuffleContent').innerHTML = "";
     line.some( function(v, i){
       var words = v.split('1.');
-      console.log(words);
       if(words.length > 1)
         document.getElementById('shuffleContent').innerHTML += (i+1) + " : " + words[1] + "<br>";
     });
@@ -296,7 +295,6 @@ function changeTextFormat(){
     document.getElementById('shuffleContent').innerHTML = "";
     line.some( function(v, i){
       var words = v.split(' : ');
-      console.log(words);
       if(words.length > 1)
         document.getElementById('shuffleContent').innerHTML += "1. " + words[1] + "<br>";
     });
