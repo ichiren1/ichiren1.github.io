@@ -1,461 +1,335 @@
-var textArrayAin = [];
-var textArrayBin = [];
-var textArrayAout = [];
-var textArrayBout = [];
+var inputArray = [];
+var outputArray = [];
+var inputFormCount = 2;
+var inputtedCount = 0;
 var selectedMode;
 var usedTemplate;
-var recipe_titles = new Array();
-var recipe_materials = new Array();
+var recipe_titles = [];
+var recipe_materials = [];
+var saveFlag = false;
+var setPresetFlag = false;
+var isMarkdown = false;
+var enabledTemplateMode = false;
 
 function addForm() {
-    save();
-    inputFormA.innerHTML += "<input><br>";
-    inputFormB.innerHTML += "<input><br>";
-    set();
+  save();
+  inputFormCount ++;
+  inputForm.innerHTML += '<div><paper-input id="input'+inputFormCount+'" class="inputForm" label="候補'+inputFormCount+'" floatingLabel></paper-input></div>';
+  set();
 }
-function deleteForm() {
-    var nA = inputFormA.elements.length;
-    var nB = inputFormB.elements.length;
-    if(nA > 2){
+function decreaseForm() {
+    if(inputFormCount > 2){
         save();
-        inputFormA.innerHTML = "";
-        inputFormB.innerHTML = "";
-        for (var i = 0; i < nA-1; i++) {
-            inputFormA.innerHTML += "<input><br>";
-            inputFormB.innerHTML += "<input><br>";
+        inputForm.innerHTML = "";
+        for (var i = 0; i < inputFormCount-1; i++) {
+            inputForm.innerHTML += '<div><paper-input id="input'+(i+1)+'" class="inputForm" label="候補'+(i+1)+'" floatingLabel></paper-input></div>';
         }
         set();
+      inputFormCount--;
     }
 }
+
 function save(){
-    var nA = inputFormA.elements.length;
-    var a = inputFormA.elements[0].value;
-    textArrayAin.length = 0;
-    textArrayBin.length = 0;
-    for (var i = 0; i < nA; i++) {
-        if(inputFormA.elements[i].value != ""){
-            textArrayAin.push(inputFormA.elements[i].value);
-        }
-        if(inputFormB.elements[i].value != ""){
-            textArrayBin.push(inputFormB.elements[i].value);
-        }
-    };
+  inputArray.length = 0;
+  inputtedCount = 0;
+  for (var i = 0; i < inputFormCount; i++) {
+    if(document.getElementById("input"+(i+1)).value != ""){
+      inputArray.push(document.getElementById('input'+(i+1)).value);
+      inputtedCount++;
+    }
+  }
 }
-function set(f){
-    var nA = inputFormA.elements.length;
-    var nTA = textArrayAin.length;
-    var nTB = textArrayBin.length;
-    for (var i = 0; i < nA; i++) {
-        if(nTA > i){
-            inputFormA.elements[i].value = textArrayAin[i];
+
+function set(){
+    for (var i = 0; i < inputtedCount; i++) {
+        if(inputtedCount > i){
+            document.getElementById('input'+(i+1)).value = inputArray[i];
         }else{
-            inputFormA.elements[i].value = i+1;
-        }
-        if(nTB > i){
-            inputFormB.elements[i].value = textArrayBin[i];
-        }else{
-            inputFormB.elements[i].value = "";
+            document.getElementById('input'+(i+1)).value = '';
         }
     }
 }
 function shuffle(){
-    var nB = 0;
-    var sideForm3_f = false;
-    for(var i=0; i < inputFormB.elements.length; i++){
-        if(inputFormB.elements[i].value != ""){
-            nB++;
-        }
+  save();
+  if(inputtedCount > 1){
+    outputArray = inputArray;
+    setResultCard();
+    document.getElementById('result_output_area').innerHTML = '<div id="shuffleDate">'+new Date().toLocaleString()+'</div>';
+    for(var i = 0; i< outputArray.length; i++){
+      var r=Math.floor((outputArray.length)*Math.random(new Date()));
+      var tmp=outputArray[i];
+      outputArray[i]=outputArray[r];
+      outputArray[r]=tmp;
     }
-    if(nB > 1){
-        save();
-        textArrayAout = textArrayAin;
-        textArrayBout = textArrayBin;
-        sideForm1.innerHTML = "<Label>結果</Label><br><textarea name='plainOutput' id='plainOutput' style='height:"+(textArrayBout.length+3)+"em'></textarea>";
-        sideForm1.plainOutput.value = new Date().toLocaleString()+"\n=================\n";
-        sideForm2.innerHTML = "<Label>Markdown</Label><br><textarea name='markdownOutput' id='markdownOutput' style='height:"+(textArrayBout.length+5)+"em'></textarea>";
-        sideForm2.markdownOutput.value = new Date().toLocaleString()+"\n\n---\n";
-        for(var i = 0; i< textArrayBout.length; i++){
-            var r=Math.floor((textArrayBout.length)*Math.random(new Date()));
-            var tmp=textArrayBout[i];
-            textArrayBout[i]=textArrayBout[r];
-            textArrayBout[r]=tmp;
-        }
+    document.getElementById('result_output_area').innerHTML += '<div id="shuffleContent"></div>';
+    for(var i = 0; i< outputArray.length; i++){
+      document.getElementById('shuffleContent').innerHTML += (i+1) +" : "+outputArray[i]+'<br>';
+    }
         var out = "";
-        for (var i = 0; i < textArrayBout.length; i++) {
-            sideForm1.plainOutput.value += textArrayAout[i] + " : " + textArrayBout[i]+"\n";
-            sideForm2.markdownOutput.value += " - " + textArrayAout[i] + " : " + textArrayBout[i]+"\n";
-            out += encodeURIComponent(textArrayAout[i] + " : " + textArrayBout[i]) + "%0A";
+        for (var i = 0; i < outputArray.length; i++) {
+            out += encodeURIComponent((i+1) +" : "+outputArray[i] + "\n");
         };
 
         var f='http://twitter.com/?status='+out+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
-        sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png' id='tweetButton'></a>";
+        document.getElementById('result_card').innerHTML += "<a href="+f+" TARGET='_blank'><img src='images/Twitter_logo_blue.png'  id='tweetButton'></a>";
+        document.getElementById('result_card').innerHTML += "<paper-icon-button toggle raised src='images/markdown.png'  id='markdownButton' onclick='changeTextFormat()'>button</paper-icon-button>";
+        
     }
 }
 
 function chooseone(){
-    save();
-    if(templateForm.elements.length != 0){
-        textArray = templateForm.template.value.split("\n");
-        for (var i = 0; i < textArray.length; i++) {
-            if( /cookpad/.test(textArray[i]) ) {
-                recipe_materials = textArrayBin;
-                getRecipes(chooseRecipe());
-                return;
-            }
-        }
+  isMarkdown = false;
+  save();
+  if(document.getElementById('templateTextarea').value != null){
+    var templateValues = document.getElementById('templateTextarea').value.split('\n');
+    for (var i = 0; i < templateValues.length; i++) {
+      if( /cookpad/.test(templateValues[i]) ) {
+        recipe_materials = inputArray;
+        getRecipes(chooseRecipe());
+        return;
+      }
     }
+  }
 
-    textArrayAout = textArrayAin;
-    textArrayBout = textArrayBin;
-    sideForm1.innerHTML = "<Label>結果</Label><br><textarea name='plainOutput' id='plainOutput' style='height:"+(textArrayBout.length+3)+"em'></textarea>";
-    sideForm1.plainOutput.value = new Date().toLocaleString()+"\n=================\n";
-    sideForm2.innerHTML =
-    "<Label>Markdown</Label><br><textarea name='markdownOutput' id='markdownOutput' style='height:"+(textArrayBout.length+5)+"em'></textarea>";
-    sideForm2.markdownOutput.value = new Date().toLocaleString()+"\n\n---\n";
-
-    if(textArrayBin.length>1){
-        var out ="";
-        var r=Math.floor((textArrayBin.length)*Math.random(new Date()));
-        sideForm1.plainOutput.value += textArrayAin[r]+" : "+textArrayBin[r]+"\n";
-        sideForm2.markdownOutput.value += " - "+textArrayAin[r]+" : "+textArrayBin[r]+"\n";
-        out = "==選ばれたやつ==%0A";
-        out += encodeURIComponent(textArrayAin[r] + " : " + textArrayBin[r])+"%0A";
-        var f='http://twitter.com/?status='+out+getAllCandidates(textArrayBin)+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
-        sideForm3.innerHTML = "<a href="+f+" TARGET='_blank'><img src='images/ichirentweettouka.png'  id='tweetButton'></a>";
-    }
+  if(inputArray.length>1){
+    outputArray = inputArray;
+    setResultCard();
+    document.getElementById('result_output_area').innerHTML = '<div id="shuffleDate">'+new Date().toLocaleString()+'</div>';
+    var out = '';
+    var r = Math.floor((inputArray.length)*Math.random(new Date()));
+    document.getElementById('result_output_area').innerHTML += '<div id="shuffleContent"></div>';
+    document.getElementById('shuffleContent').innerHTML += inputArray[r]+'\n';
+    out = "";
+    out += encodeURIComponent(inputArray[r]+"\n");
+    var f='http://twitter.com/?status='+out+getAllCandidates(inputArray)+encodeURIComponent("#ichirenShuffle http://ichiren1.github.io");
+    document.getElementById('result_card').innerHTML += "<a href="+f+" TARGET='_blank'><img src='images/Twitter_logo_blue.png'  id='tweetButton'></a>";
+  }
 }
 
 function janken(){
-    resetArrays();
+  
+  if(inputArray.length > 1){
+    inputArray = [];
+    outputArray = [];
     save();
-    sideForm1.innerHTML = "<Label>結果</Label><br>";
-    sideForm2.innerHTML = "";
-    sideForm3.innerHTML = "";
+    setResultCard();
+    document.getElementById('result_output_area').innerHTML = '<div id="shuffleDate">'+new Date().toLocaleString()+'</div>';
     var gu=0, choki=0, pa=0;
-    for(var i=0; i<textArrayBin.length; i++){
-        textArrayBout[i] = Math.floor((3)*Math.random(new Date()));
-        sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
-        switch(textArrayBout[i]){
-            case 0: //グー
-                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img><br>";
-                gu++;
-                break;
-            case 1: //チョキ
-                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img><br>";
-                choki++;
-                break;
-            case 2: //パー
-                sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img><br>";
-                pa++;
-                break;
-        }
+    document.getElementById('result_output_area').innerHTML += '<div id="shuffleContent"></div>';
+
+    for(var i=0; i<inputArray.length; i++){
+      outputArray[i] = Math.floor((3)*Math.random(new Date()));
+      document.getElementById('shuffleContent').innerHTML += "<Label class='jankenLabel'>"+inputArray[i]+"</Label>";
+      switch(outputArray[i]){
+        case 0: //グー
+          document.getElementById('shuffleContent').innerHTML += "<img class='jankenImage' src='images/janken/M-j_gu02.png'></img><br>";
+          gu++;
+          break;
+        case 1: //チョキ
+          document.getElementById('shuffleContent').innerHTML += "<img class='jankenImage' src='images/janken/M-j_ch02.png'></img><br>";
+          choki++;
+          break;
+        case 2: //パー
+          document.getElementById('shuffleContent').innerHTML += "<img class='jankenImage' src='images/janken/M-j_pa02.png'></img><br>";
+          pa++;
+          break;
+      }
     }
-    shuffleForm.innerHTML = "<paper-button raised id='shuffleButton' onclick='shuffle()''>シャッフル</paper-button>";
-    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='chooseone()'>1つ選ぶ</paper-button>";
-    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='janken()'>じゃんけんポン</paper-button>";
-    if(textArrayBin.length > 1)
-        shuffleForm.innerHTML += "<paper-button raised id='nextButton' onClick='nextJanken("+gu+","+choki+","+pa+")'>次へ</paper-button>";
+    document.getElementById('shuffleContent').innerHTML += "<core-icon-button affirmative autofocus icon='forward' class='editButton' id='next_janken_button' onclick='nextJanken("+gu+","+choki+","+pa+")'></core-icon-button>";
+  }
 }
 
 function nextJanken(gu, choki, pa){
-    if(gu!=0 || choki!=0 || pa!=0){
-        var tmp = [];
-        var flag = false;
-        if(gu>0 && choki>0){
-            for(var i=0; i<textArrayBin.length; i++){
-                if(textArrayBout[i] == 0){ //gu
-                    tmp.push(textArrayBin[i]);
-                    flag = true;
-                }
-            }
+  if(gu!=0 || choki!=0 || pa!=0){
+    var tmp = [];
+    var flag = false;
+    if(gu>0 && choki>0){
+      for(var i=0; i<inputArray.length; i++){
+        if(outputArray[i] == 0){ //gu
+          tmp.push(inputArray[i]);
+          flag = true;
         }
-        if(choki>0 && pa>0){
-            for(var i=0; i<textArrayBin.length; i++){
-                if(textArrayBout[i] == 1){ //choki
-                    tmp.push(textArrayBin[i]);
-                    flag = true;
-                }
-            }
-        }
-        if(pa>0 && gu>0){
-            for(var i=0; i<textArrayBin.length; i++){
-                if(textArrayBout[i] == 2){ //pa
-                    tmp.push(textArrayBin[i]);
-                    flag = true;
-                }
-            }
-        }
-        if(flag)
-            textArrayBin = tmp;
+      }
     }
-    sideForm1.innerHTML = "<Label>結果</Label><br>";
-    sideForm2.innerHTML = "";
-    sideForm3.innerHTML = "";
-    var gu=0, choki=0, pa=0;
-    for(var i=0; i<textArrayBin.length; i++){
-        textArrayBout[i] = Math.floor((3)*Math.random(new Date()));
-        sideForm1.innerHTML += "<Label id='jankenLabel'>"+textArrayBin[i]+"</Label>";
-        if(textArrayBin.length==1){
-            sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img>勝ち<br>";
-        }else{
-            switch(textArrayBout[i]){
-                case 0: //グー
-                    sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_gu02.png'></img><br>";
-                    gu++;
-                    break;
-                case 1: //チョキ
-                    sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_ch02.png'></img><br>";
-                    choki++;
-                    break;
-                case 2: //パー
-                    sideForm1.innerHTML += "<img id='jankenImg' src='images/janken/M-j_pa02.png'></img><br>";
-                    pa++;
-                    break;
-            }
+    if(choki>0 && pa>0){
+      for(var i=0; i<inputArray.length; i++){
+        if(outputArray[i] == 1){ //choki
+          tmp.push(inputArray[i]);
+          flag = true;
         }
+      }
     }
-    shuffleForm.innerHTML = "<paper-button raised id='shuffleButton' onclick='shuffle()''>シャッフル</paper-button>";
-    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='chooseone()'>1つ選ぶ</paper-button>";
-    shuffleForm.innerHTML += "<paper-button raised id='shuffleButton' onclick='janken()'>じゃんけんポン</paper-button>";
-    if(textArrayBin.length > 1)
-        shuffleForm.innerHTML += "<paper-button raised id='nextButton' onClick='nextJanken("+gu+","+choki+","+pa+")'>次へ</paper-button>";
+    if(pa>0 && gu>0){
+      for(var i=0; i<inputArray.length; i++){
+        if(outputArray[i] == 2){ //pa
+          tmp.push(inputArray[i]);
+          flag = true;
+        }
+      }
+    }
+    if(flag)
+      inputArray = tmp;
+  }
+  document.getElementById('result_output_area').innerHTML = '<div id="shuffleDate">'+new Date().toLocaleString()+'</div>';
+
+  var gu=0, choki=0, pa=0;
+  for(var i=0; i<inputArray.length; i++){
+    outputArray[i] = Math.floor((3)*Math.random(new Date()));
+    document.getElementById('result_output_area').innerHTML += '<div id="shuffleContent"></div>';
+    
+    document.getElementById('shuffleContent').innerHTML += "<Label class='jankenLabel'>"+inputArray[i]+"</Label>";
+    switch(outputArray[i]){
+      case 0: //グー
+        document.getElementById('shuffleContent').innerHTML += "<img class='jankenImage' src='images/janken/M-j_gu02.png'></img><br>";
+        gu++;
+        break;
+      case 1: //チョキ
+        document.getElementById('shuffleContent').innerHTML += "<img class='jankenImage' src='images/janken/M-j_ch02.png'></img><br>";
+        choki++;
+        break;
+      case 2: //パー
+        document.getElementById('shuffleContent').innerHTML += "<img class='jankenImage' src='images/janken/M-j_pa02.png'></img><br>";
+        pa++;
+        break;
+    }
+  }
+  if(inputArray.length > 1){
+    document.getElementById('shuffleContent').innerHTML += "<core-icon-button affirmative autofocus icon='forward' class='editButton' id='next_janken_button' onclick='nextJanken("+gu+","+choki+","+pa+")'></core-icon-button>";
+  }
 }
 
-function setTemplateForm(f){
-    save();
-    textArray = templateForm.template.value.split("\n");
-    for (var i = 0; i < textArray.length; i++) {
-        if( /cookpad/.test(textArray[i]) ) {
-            recipe_materials = textArrayBin;
-            getRecipes(chooseRecipe());
-            return;
-        }
+function setPreset(values){
+    values = values.split(',');
+  for(var j=inputFormCount; j<values.length; j++){
+    inputForm.innerHTML += '<div><paper-input id="input'+(j+1)+'" class="inputForm" label="候補'+(j+1)+'" floatingLabel></paper-input></div>';
+    inputFormCount++;
+  }
+  for(var j=0; j<inputFormCount; j++){
+    if(values.length > j){
+      document.getElementById('input'+(j+1)).value = values[j];
+    }else{
+      document.getElementById('input'+(j+1)).value = '';
     }
-    if(templateForm.template.value!=""){
-        inputFormA.innerHTML = null;
-        inputFormB.innerHTML = null;
-        textArray = templateForm.template.value.split("\n");
-        var n = textArray.length-inputFormB.elements.length;
-        for (var i=0; i < n; i++){
-            inputFormA.innerHTML += "<input><br>";
-            inputFormB.innerHTML += "<input><br>";
-        }
-        for (var i = 0; i < textArray.length; i++) {
-            if( / : /.test(textArray[i])){
-                var textAB = textArray[i].split(" : ");
-                inputFormA.elements[i].value = textAB[0];
-                inputFormB.elements[i].value = textAB[1];
-            }else{
-                if( /poj/.test(textArray[i])){ //prefectures of japan
-                    for(var j=0; j<46; j++){
-                        inputFormA.innerHTML += "<input><br>";
-                        inputFormB.innerHTML += "<input><br>";
-                    }
-                    for(var j=0; j<47; j++){
-                        inputFormA.elements[j].value = j+1;
-                    }
-                    inputFormB.elements[0].value = "北海道";
-
-                    inputFormB.elements[1].value = "青森県";
-                    inputFormB.elements[2].value = "秋田県";
-                    inputFormB.elements[3].value = "岩手県";
-                    inputFormB.elements[4].value = "山形県";
-                    inputFormB.elements[5].value = "福島県";
-                    inputFormB.elements[6].value = "宮城県";
-
-                    inputFormB.elements[7].value = "茨城県";
-                    inputFormB.elements[8].value = "栃木県";
-                    inputFormB.elements[9].value = "群馬県";
-                    inputFormB.elements[10].value = "埼玉県";
-                    inputFormB.elements[11].value = "千葉県";
-                    inputFormB.elements[12].value = "東京都";
-                    inputFormB.elements[13].value = "神奈川県";
-
-                    inputFormB.elements[14].value = "新潟県";
-                    inputFormB.elements[15].value = "富山県";
-                    inputFormB.elements[16].value = "石川県";
-                    inputFormB.elements[17].value = "福井県";
-                    inputFormB.elements[18].value = "山梨県";
-                    inputFormB.elements[19].value = "長野県";
-                    inputFormB.elements[20].value = "岐阜県";
-                    inputFormB.elements[21].value = "静岡県";
-                    inputFormB.elements[22].value = "愛知県";
-
-                    inputFormB.elements[23].value = "三重県";
-                    inputFormB.elements[24].value = "滋賀県";
-                    inputFormB.elements[25].value = "京都府";
-                    inputFormB.elements[26].value = "大阪府";
-                    inputFormB.elements[27].value = "兵庫県";
-                    inputFormB.elements[28].value = "奈良県";
-                    inputFormB.elements[29].value = "和歌山県";
-
-                    inputFormB.elements[30].value = "鳥取県";
-                    inputFormB.elements[31].value = "島根県";
-                    inputFormB.elements[32].value = "岡山県";
-                    inputFormB.elements[33].value = "広島県";
-                    inputFormB.elements[34].value = "山口県";
-
-                    inputFormB.elements[35].value = "徳島県";
-                    inputFormB.elements[36].value = "香川県";
-                    inputFormB.elements[37].value = "愛媛県";
-                    inputFormB.elements[38].value = "高知県";
-
-                    inputFormB.elements[39].value = "福岡県";
-                    inputFormB.elements[40].value = "佐賀県";
-                    inputFormB.elements[41].value = "長崎県";
-                    inputFormB.elements[42].value = "熊本県";
-                    inputFormB.elements[43].value = "大分県";
-                    inputFormB.elements[44].value = "宮崎県";
-                    inputFormB.elements[45].value = "鹿児島県";
-
-                    inputFormB.elements[46].value = "沖縄県";
-                    break;
-
-                }
-        if( /course/.test(textArray[i])) {
-                    for(var j=0; j<3; j++){
-                        inputFormA.innerHTML += "<input>:<br>";
-                        inputFormB.innerHTML += "<input><br>";
-                    }
-                    for(var j=0; j<4; j++){
-                        inputFormA.elements[j].value = j+1;
-                    }
-                    inputFormB.elements[0].value = "情報システムコース";
-                    inputFormB.elements[1].value = "情報デザインコース";
-                    inputFormB.elements[2].value = "複雑系コース";
-                    inputFormB.elements[3].value = "知能システムコース";
-                    break;
-                }
-                if( /We are rootbeer/.test(textArray[i])) {
-                    for(var j=0; j<7; j++){
-                        inputFormA.innerHTML += "<input><br>";
-                        inputFormB.innerHTML += "<input><br>";
-                    }
-                    for(var j=0; j<8; j++){
-                        inputFormA.elements[j].value = j+1;
-                    }
-                    inputFormB.elements[0].value = "ichiren";
-                    inputFormB.elements[1].value = "uryu";
-                    inputFormB.elements[2].value = "ejo";
-                    inputFormB.elements[3].value = "kumar";
-                    inputFormB.elements[4].value = "kuromilk";
-                    inputFormB.elements[5].value = "KG";
-                    inputFormB.elements[6].value = "choco";
-                    inputFormB.elements[7].value = "MiZUP";
-                    break;
-                }
-                if( /Pizza/.test(textArray[i]) ) {
-                    for(var j=0; j<8; j++){
-                        inputFormA.innerHTML += "<input><br>";
-                        inputFormB.innerHTML += "<input><br>";
-                    }
-                    for(var j=0; j<9; j++){
-                        inputFormA.elements[j].value = j+1;
-                    }
-                    inputFormB.elements[0].value = "テンフォーミックス";
-                    inputFormB.elements[1].value = "フレッシュトマト";
-                    inputFormB.elements[2].value = "カントリー男爵（ショウユソース）";
-                    inputFormB.elements[3].value = "カントリー男爵（カレーソース）";
-                    inputFormB.elements[4].value = "エビデラックス";
-                    inputFormB.elements[5].value = "ジョイポップ";
-                    inputFormB.elements[6].value = "味わいサラミ";
-                    inputFormB.elements[7].value = "テリヤキハーブチキン";
-                    inputFormB.elements[8].value = "香味海鮮";
-                    break;
-                }
-                if( /:/.test(textArray[i])) { //hankaku
-                    var textAB = textArray[i].split(":");
-                    inputFormA.elements[i].value = textAB[0];
-                    inputFormB.elements[i].value = textAB[1];
-                }else if(/：/.test(textArray[i])){//zenkaku
-                    var textAB = textArray[i].split("：");
-                    inputFormA.elements[i].value = textAB[0];
-                    inputFormB.elements[i].value = textAB[1];
-                }else{
-                    inputFormA.elements[i].value = i+1;
-                    inputFormB.elements[i].value = textArray[i];
-                }
-            }
-        }
-    }
+  }
 }
 
-function formReset(){
-    inputFormA.innerHTML = "<input value='1'><br>";
-    inputFormA.innerHTML += "<input value='2'><br>";
-    inputFormB.innerHTML = "<input><br>";
-    inputFormB.innerHTML += "<input><br>";
+function setTemplateForm(){
+  save();
+  var templateValues = document.getElementById('templateTextarea').value.split('\n');
+  for (var i = 0; i < templateValues.length; i++) {
+    if( /cookpad/.test(templateValues[i]) ) {
+      recipe_materials = inputArray;
+      getRecipes(chooseRecipe());
+      return;
+    }
+  }
+  if(document.getElementById('templateTextarea').value != ""){
+    var templateValues = document.getElementById('templateTextarea').value.split('\n');
+    if(templateValues.length > 1){
+      inputForm.innerHTML = "";
+      for(var i=0; i<templateValues.length; i++){
+        inputForm.innerHTML += '<div><paper-input id="input'+(i+1)+'" class="inputForm" label="候補'+(i+1)+'" floatingLabel></paper-input></div>';
+      }
+    }else{
+      resetForm();
+    }
+    for (var i = 0; i < templateValues.length; i++) {
+      if( /poj/.test(templateValues[i])){ //prefectures of japan
+        var prefectures = ["北海道","青森県","秋田県","岩手県","山形県","福島県","宮城県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
+        setPreset(prefectures);
+        break;
+      }
+      if( /course/.test(templateValues[i])) {
+        var courses = ["情報システムコース","情報デザインコース","複雑系コース","知能システムコース"];
+        setPreset(courses);
+        break;
+      }
+      if( /we are rootbeer/.test(templateValues[i])) {
+        var roobp = ["ichiren","uryu","ejo","kumar","kuromilk","KG","choco","MiZUP"];
+        setPreset(roobp);
+        break;
+      }
+      if( /pizza/.test(templateValues[i]) ) {
+var pizzas = ["テンフォーミックス","フレッシュトマト","カントリー男爵（ショウユソース）","カントリー男爵（カレーソース）","エビデラックス","ジョイポップ","味わいサラミ","テリヤキハーブチキン","香味海鮮"];
+        setPreset(pizzas);
+        break;
+      }
+      document.getElementById('input'+(i+1)).value = templateValues[i];
+    }
+  }
 }
 
-function resetArrays(){
-    textArrayAin = [];
-    textArrayBin = [];
-    textArrayAout = [];
-    textArrayBout = [];
-}
-
-function calcRatioOfTextArray(textArray){
-    var textArrayHash = {};
-    for (var i=0; i<textArray.length; i++){
-        if(textArrayHash[textArray[i]] > 0){
-            textArrayHash[textArray[i]] += 1;
-        }else{
-            textArrayHash[textArray[i]] = 1;
-        }
-    }
-
-    for( var key in textArrayHash ){
-        textArrayHash[key] = textArrayHash[key]/textArray.length;
-    }
-    return textArrayHash;
-
+function resetForm(){
+  inputForm.innerHTML = '<div><paper-input id="input1" class="inputForm" label="候補1" floatingLabel></paper-input></div>';
+  inputForm.innerHTML += '<div><paper-input id="input2" class="inputForm" label="候補2" floatingLabel></paper-input></div>';
+  inputFormCount = 2;
 }
 
 function getAllCandidates(textArray){
-    var candidates = "==候補==%0A";
-    for(var i=0; i<textArray.length; i++){
-        if(candidates.length + textArray[i].length < 50){
-            candidates += textArray[i];
-            if(i != textArray.length-1)
-                candidates += "%2C%20";
-        }else{
-            candidates += "...";
-            break;
-        }
+  var candidates = "==候補==%0A";
+  for(var i=0; i<textArray.length; i++){
+    if(candidates.length + textArray[i].length < 138){
+      candidates += textArray[i];
+      if(i != textArray.length-1)
+        candidates += "%2C%20";
+    }else{
+      candidates += "...";
+        break;
     }
-    return candidates+"%0A";
+  }
+  return candidates+"%0A";
+}
+
+function changeTextFormat(){
+  if(isMarkdown){
+    var line = document.getElementById('shuffleContent').innerHTML.split('<br>');
+    document.getElementById('shuffleContent').innerHTML = "";
+    line.some( function(v, i){
+      var words = v.split('1.');
+      if(words.length > 1)
+        document.getElementById('shuffleContent').innerHTML += (i+1) + " : " + words[1] + "<br>";
+    });
+    isMarkdown = false;
+  }else{
+    var line = document.getElementById('shuffleContent').innerHTML.split('<br>');
+    document.getElementById('shuffleContent').innerHTML = "";
+    line.some( function(v, i){
+      var words = v.split(' : ');
+      if(words.length > 1)
+        document.getElementById('shuffleContent').innerHTML += "1. " + words[1] + "<br>";
+    });
+    isMarkdown = true;
+  }
 }
 
 function getRecipes(index){
-  sideForm2.innerHTML = ""
-  sideForm3.innerHTML = ""
-  uri = 'http://cookpad.com/search/';
+  var uri = 'http://cookpad.com/search/';
   for(var i=0; i<recipe_materials.length; i++){
-      uri += recipe_materials[i]+"%20";
+    uri += recipe_materials[i]+"%20";
   }
   $.get(uri, function(data){
-      body = $(data.responseText).find('.count');
-      var num = body.text().replace("品","")
-      num = num.replace(",", "")
-      for(var i=1; i<num.length; i++){
-          if (num[i] == "\n"){
-              num = num.slice(1, i);
-              break;
-          }
+    var body = $(data.responseText).find('.count');
+    var totalRecipeNum = body.text().replace("品","")
+    totalRecipeNum = totalRecipeNum.replace(",", "")
+    for(var i=1; i<totalRecipeNum.length; i++){
+      if (totalRecipeNum[i] == "\n"){
+        totalRecipeNum = totalRecipeNum.slice(1, i);
+        break;
       }
-      console.log(num);
+    }
+    console.log(totalRecipeNum);
   });
   uri += "?order=date&page=";
   var count=0;
-  for(var i=1; i<=3; i++){ //30件
+  for(var i=1; i<=5; i++){ //30件
     $.get(uri+i, function(data){
-      body = $(data.responseText).find('.recipe-title').each(function(){
+      var body = $(data.responseText).find('.recipe-title').each(function(){
         if($(this).attr('data-track-action') != "Click"){
           if(count == index){
-            sideForm1.innerHTML = "<a href='"+$(this).attr('href')+"'><h1>"+$(this).text()+"</h1></a>";
+            document.getElementById('result_output_area').innerHTML = "<a href='"+$(this).attr('href')+"'><h1>"+$(this).text()+"</h1></a>";
             $.get($(this).attr('href'), function(d){
-              c = $(d.responseText).find('#main-photo').each(function(){
-                sideForm2.innerHTML = "<img src='"+$(this).children().attr('src')+"'  id='recipe_photo'></img>"
+              var c = $(d.responseText).find('#main-photo').each(function(){
+                document.getElementById('result_output_area').innerHTML += "<img src='"+$(this).children().attr('src')+"'  id='recipe_photo'></img>"
               });
             });
           }
@@ -464,11 +338,57 @@ function getRecipes(index){
       });
     });
     if(count == 0){
-        sideForm1.innerHTML = "検索中です..."
+        document.getElementById('result_output_area').innerHTML = "検索中です..."
     }
   }
 }
 
 function chooseRecipe(){
   return index = Math.floor((30)*Math.random(new Date()));
+}
+
+function savePreset(){
+  if(document.getElementById('presetTextarea').value != ""){
+    localStorage.setItem('ichirenshuffle_'+document.getElementById('presetName').value, document.getElementById('presetTextarea').value);
+    document.getElementById('presetName').value = '';
+    document.getElementById('presetTextarea').value = '';
+    showPresetList();
+  }
+}
+
+function showPresetList(){
+  document.getElementById('for_preset_list').innerHTML = '';
+  for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+    var keyContent = localStorage.key(i).split('_');
+    if(keyContent[0] == 'ichirenshuffle'){
+      var valueContents = localStorage.getItem(localStorage.key(i)).split('\n');
+      document.getElementById('for_preset_list').innerHTML += '<div id="presetKey">'+keyContent[1]+'<paper-button affirmative><core-icon icon="input" id = "setPresetButton" onclick="setPreset(\''+valueContents+'\');location=\'#inputCard\' "></core-icon></paper-button><paper-button affirmative autofocus autofocus id = "deletePresetButton" onclick="deletePreset(\''+localStorage.key(i)+'\')"><core-icon icon="clear"></core-icon></paper-button></div>';
+      document.getElementById('for_preset_list').innerHTML += '<div>'+ valueContents + '</div>';
+    }
+  }
+}
+
+function showTemplateMode(){
+  if(enabledTemplateMode){
+    document.getElementById('for_template_mode').innerHTML = "";
+    enabledTemplateMode = false;
+  }else{
+    document.getElementById('for_template_mode').innerHTML = '<div><paper-input label="保存名" required id="presetName"></paper-input><paper-input-decorator label="候補" floatingLabel><paper-autogrow-textarea><textarea id="presetTextarea"></textarea></paper-autogrow-textarea></paper-input-decorator><paper-button onclick="savePreset()">保存する</paper-button></div>';
+    document.getElementById('for_template_mode').innerHTML += '<div id="for_preset_list"></div>'
+    showPresetList();
+    enabledTemplateMode = true;
+  }
+}
+
+function setResultCard(){
+  document.getElementById('for_result_card').innerHTML = '<paper-shadow class="card" id="result_card" z="1" /><div id="result_output_area"></div>'
+}
+
+function setTemplateCard(){
+  document.getElementById('for_template_card').innerHTML = '';
+}
+
+function deletePreset(key){
+  localStorage.removeItem(key);
+  showPresetList();
 }

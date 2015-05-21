@@ -74,6 +74,18 @@ Keys Syntax Grammar:
 @homepage github.io
 -->
 
+<!--
+Fired when a keycombo in `keys` is pressed.
+
+@event keys-pressed
+@param {Object} detail
+  @param {boolean} detail.shift true if shift key is pressed
+  @param {boolean} detail.ctrl true if ctrl key is pressed
+  @param {boolean} detail.meta true if meta key is pressed
+  @param {boolean} detail.alt true if alt key is pressed
+  @param {String} detail.key the normalized key
+-->
+
 <link rel="import" href="../polymer/polymer.html">
 
 <style shim-shadowdom>
@@ -142,6 +154,7 @@ Keys Syntax Grammar:
      * Values from: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent.keyCode#Value_of_keyCode
      */
     var KEY_CODE = {
+      9: 'tab',
       13: 'enter',
       27: 'esc',
       33: 'pageup',
@@ -221,8 +234,8 @@ Keys Syntax Grammar:
     }
 
     function keyboardEventToKey(ev) {
-      // fall back from .key, to .keyIdentifier, and then to .keyCode
-      var normalizedKey = transformKey(ev.key) || transformKeyIdentifier(ev.keyIdentifier) || transformKeyCode(ev.keyCode) || '';
+      // fall back from .key, to .keyIdentifier, to .keyCode, and then to .detail.key to support artificial keyboard events
+      var normalizedKey = transformKey(ev.key) || transformKeyIdentifier(ev.keyIdentifier) || transformKeyCode(ev.keyCode) || transformKey(ev.detail.key) || '';
       return {
         shift: ev.shiftKey,
         ctrl: ev.ctrlKey,
@@ -257,11 +270,6 @@ Keys Syntax Grammar:
       return Boolean(a.alt) == Boolean(b.alt) && Boolean(a.ctrl) == Boolean(b.ctrl) && Boolean(a.shift) == Boolean(b.shift) && a.key === b.key;
     }
 
-    /**
-     * Fired when a keycombo in `keys` is pressed.
-     *
-     * @event keys-pressed
-     */
     function processKeys(ev) {
       var current = keyboardEventToKey(ev);
       for (var i = 0, dk; i < this._desiredKeys.length; i++) {
@@ -292,6 +300,9 @@ Keys Syntax Grammar:
         this._keyHandler = processKeys.bind(this);
       },
       attached: function() {
+        if (!this.target) {
+          this.target = this.parentNode;
+        }
         listen(this.target, this._keyHandler);
       },
       detached: function() {
@@ -299,19 +310,20 @@ Keys Syntax Grammar:
       },
       publish: {
         /**
-         * The set of key combinations to listen for.
+         * The set of key combinations that will be matched (in keys syntax).
          *
          * @attribute keys
-         * @type string (keys syntax)
+         * @type string
          * @default ''
          */
         keys: '',
         /**
          * The node that will fire keyboard events.
+         * Default to this element's parentNode unless one is assigned
          *
          * @attribute target
          * @type Node
-         * @default null
+         * @default this.parentNode
          */
         target: null
       },

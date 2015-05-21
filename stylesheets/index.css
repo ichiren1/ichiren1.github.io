@@ -1,16 +1,3 @@
-input {
-  height: 30px;
-  width: 40%;
-  margin: 10px 0px;
-}
-
-.content{
-  margin-top: 10px;
-  background-color: #ffffff;
-  width: 70%;
-  color: #4f7dc9;
-}
-
 paper-button {
   margin: 10px 0px;
   margin-right: 10px;
@@ -20,158 +7,153 @@ paper-button {
 body {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
   font-size: 14px;
+  background-color:#eaeaea;
   margin: 0;
-  padding: 24px;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
   overflow: auto;
 }
 
-section {
-  padding: 20px 0;
+:host{
+  position: static;
 }
 
-section > div {
-  padding: 14px;
-  font-size: 16px;
+core-toolbar {
+    background-color: #1976d2;
+    color:            #ffffff;
+}
+.content{
+  margin: 20px 0;
 }
 
-paper-button.colored {
-  color: #4285f4;
-}
-
-paper-button[raised].colored {
-  background: #4285f4;
-  color: #fff;
-}
-
-paper-button.custom > core-icon {
-  margin-right: 4px;
-}
-
-paper-button.hover:hover {
-  background: #eee;
-}
-
-paper-button.blue-ripple::shadow #ripple {
-  color: #4285f4;
-}
-
-[drawer]{
-  background-color: #b99588;
-  border-right: 1px solid #ccc;
-  padding-right: 10%;
-  overflow: auto;
-}
-
-[main]{
-  background-color: #4f7dc9;
-  padding-left: 10%;
-  overflow: auto;
-}
-
-#toggleButton{
-  display: none;
-}
-
-core-drawer-panel[narrow] #toggleButton{
-  display: inline-block;
-  width: 50px;
-  float: right;
-  background-color: #afccfb;
-  color: #4f7dc9;
-  text-align: center;
-  padding: 50% 0;
-}
-
-#title{
-  width: 70%;
-  height: 50px;
-  color: #4f7dc9;
-  background-color: #afccfb;
-  position:relative;
-}
-
-#ctrlbutton{
-}
-
-#addButton{
-  background-color: #afccfb;
-}
-
-#deleteButton{
-  background-color: #afccfb;
-}
-
-#resetButton {
-  background-color: #fa9494;
-}
-
-#shuffleButton {
-  background-color: #afccfb;
-}
-
-#templateButton{
-  /*background-color: #a9a9a9;*/
-}
-
-#template{
-  width: 100%;
-  height: 5em;
-  margin-bottom: 50px;
-}
-
-#plainOutput {
-  width: 100%;
-  margin: 10px;
-}
-
-#markdownOutput {
-  width: 100%;
-  margin: 10px;
-}
-
-#markdownOutput{
-  width: 100%;
-}
-
-.result{
-  margin: 10px 5px;
-}
-
-#markdownCheck{
-  margin: 20px 10px;
+.card {
+  background:    white;
+  box-sizing:    border-box;
+  width:         70%;
+  margin:        5px auto;
+  margin-bottom: 10px;
+  padding:       18px;
+  border-radius: 2px;
 }
 
 #tweetButton{
   border: 0;
-  width:150px;
-  height: 150px;
-  float: right;
-  margin-top: 50px;
+  width:20px;
+  margin: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-#tutorialLink{
-  float: right;
-  position:absolute;
-  right: 20px;
-  bottom: 0;
+#markdownButton{
+  border: 0;
+  width:20px;
+  margin: 5px;
+  position: absolute;
+  right: 50px;
+  top: 0;
 }
 
-#jankenImg{
+#shuffleDate{
+  padding: 0 0 10px 0;
+}
+
+#resultDialog{
+  padding: 5px 0;
+}
+
+#resultDialog::shadow #scroller {
+  width: 100%;
+  max-height: 100px;
+}
+
+#presetDialog::shadow #scroller {
+  width: 100%;
+  max-height: 100px;
+}
+
+#savedList::shadow #scroller {
+  width: 100%;
+  max-height: 100px;
+}
+
+.jankenImage{
   width: 30px;
-  height: 30px;
-  /*margin-right: 30px;*/
 }
 
-#jankenLabel{
-  font-size: 30;
+#resetButton{
+  margin-right: 10px;
 }
 
-.result {
+#shuffleButton{
+  /* background: #2196F3; */
+}
+
+#chooseoneButton{
+  /* background: #2196F3; */
+}
+
+#jankenButton{
+  /* background: #2196F3; */
+  margin-right: 10px;
+}
+
+
+#setButton{
+  background: #ff5252;
+}
+
+#saveButton{
+  background: #ff5252;
+}
+
+#listButton{
+  background: #ff5252;
+}
+
+.menuButton{
+  margin-top: 60px;
+}
+
+#templageButtons{
+  margin: 10px 0;
+  text-align: center;
+}
+
+.inputForm{
   width: 100%;
 }
 
-#recipe_photo{
-  width: 100%;
+.editButton{
+  color: #727272;
+}
+
+#next_janken_button{
+  border: 0;
+  margin: 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#for_preset_list{
+  margin-top: 10px;
+}
+
+#setPresetButton{
+  width: 50px;
+  margin: 0;
+}
+
+#deletePresetButton{
+  width: 50px;
+  margin: 0;
+}
+
+#presetKey{
+  font-size: 20;
+}
+
+#result_output_area {
+  font-size: 16;
 }
