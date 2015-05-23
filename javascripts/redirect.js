@@ -27,5 +27,5 @@ function isRedirectBefore(ua){
 var browser = judgeUserAgent();
 
 if(isRedirectBefore(browser)){
-    location.href = location.href+'/before.html'
+    location.href = location.href+'before.html'
 }
