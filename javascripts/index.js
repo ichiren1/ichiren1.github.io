@@ -199,7 +199,6 @@ function nextJanken(gu, choki, pa){
 }
 
 function setPreset(values){
-    values = values.split(',');
   for(var j=inputFormCount; j<values.length; j++){
     inputForm.innerHTML += '<div><paper-input id="input'+(j+1)+'" class="inputForm" label="候補'+(j+1)+'" floatingLabel></paper-input></div>';
     inputFormCount++;
@@ -254,6 +253,11 @@ function setTemplateForm(){
       if( /pizza/.test(templateValues[i]) ) {
 var pizzas = ["テンフォーミックス","フレッシュトマト","カントリー男爵（ショウユソース）","カントリー男爵（カレーソース）","エビデラックス","ジョイポップ","味わいサラミ","テリヤキハーブチキン","香味海鮮"];
         setPreset(pizzas);
+        break;
+      }
+      if( /dom/.test(templateValues[i]) ) {
+var doms = ["村","工房","木こり","地下貯蔵庫","堀","市場","鉱山","民兵","改築","鍛冶屋","魔女","庭園","祝宴","役人","礼拝堂","議事堂","密偵","玉座の間","宰相","祝祭","冒険者","泥棒","書庫","研究所","金貸し"];
+        setPreset(doms);
         break;
       }
       document.getElementById('input'+(i+1)).value = templateValues[i];
