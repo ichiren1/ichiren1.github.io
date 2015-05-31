@@ -157,3 +157,7 @@ core-toolbar {
 #result_output_area {
   font-size: 16;
 }
+
+#settingLabel{
+  margin-left: 10px;
+}

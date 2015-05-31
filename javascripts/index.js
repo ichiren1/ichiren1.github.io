@@ -271,6 +271,7 @@ var doms = ["村","工房","木こり","地下貯蔵庫","堀","市場","鉱山"
       document.getElementById('input'+(i+1)).value = templateValues[i];
     }
   }
+  document.getElementById('settingLabel').textContent = "";
 }
 
 function resetForm(){
@@ -405,4 +406,22 @@ function setTemplateCard(){
 function deletePreset(key){
   localStorage.removeItem(key);
   showPresetList();
+}
+
+function keyEvent(){
+  if(window.event.ctrlKey && window.event.keyCode == 13){ //Enter
+    setTemplateForm();
+  }
+  
+  if(window.event.shiftKey){
+    if(window.event.keyCode == 83){ //s shuffle
+      shuffle();
+    }
+    if(window.event.keyCode == 67){ //c chooseone
+      chooseone();
+    }
+    if(window.event.keyCode == 74){ //j janken
+      janken();
+    }
+  }
 }
