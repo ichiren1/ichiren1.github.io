@@ -56,6 +56,14 @@ function shuffle(){
     outputArray = inputArray;
     setResultCard();
     document.getElementById('result_output_area').innerHTML = '<div id="shuffleDate">'+new Date().toLocaleString()+'</div>';
+    var outputNum = outputArray.length;
+    
+    //Dominion
+    var templateValues = document.getElementById('templateTextarea').value.split('\n');
+    if( /dom/.test(templateValues[0]) || /どｍ/.test(templateValues[0])) {
+      outputNum = 10;
+    }
+    
     for(var i = 0; i< outputArray.length; i++){
       var r=Math.floor((outputArray.length)*Math.random(new Date()));
       var tmp=outputArray[i];
@@ -63,11 +71,11 @@ function shuffle(){
       outputArray[r]=tmp;
     }
     document.getElementById('result_output_area').innerHTML += '<div id="shuffleContent"></div>';
-    for(var i = 0; i< outputArray.length; i++){
+    for(var i = 0; i< outputNum; i++){
       document.getElementById('shuffleContent').innerHTML += (i+1) +" : "+outputArray[i]+'<br>';
     }
         var out = "";
-        for (var i = 0; i < outputArray.length; i++) {
+        for (var i = 0; i < outputNum; i++) {
             out += encodeURIComponent((i+1) +" : "+outputArray[i] + "\n");
         };
 
@@ -255,7 +263,7 @@ var pizzas = ["テンフォーミックス","フレッシュトマト","カン�
         setPreset(pizzas);
         break;
       }
-      if( /dom/.test(templateValues[i]) ) {
+      if( /dom/.test(templateValues[i]) || /どｍ/.test(templateValues[i])) {
 var doms = ["村","工房","木こり","地下貯蔵庫","堀","市場","鉱山","民兵","改築","鍛冶屋","魔女","庭園","祝宴","役人","礼拝堂","議事堂","密偵","玉座の間","宰相","祝祭","冒険者","泥棒","書庫","研究所","金貸し"];
         setPreset(doms);
         break;
