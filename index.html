@@ -89,6 +89,10 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
           <div><paper-input id="input2" class="inputForm" label="候補2" floatingLabel></paper-input></div>
         </form>
       </div>
+    </div>
+    <span id="for_result_card"></span>
+    <span id="for_template_card">
+      <paper-shadow z="1" class="card"/>
       <div>
         <paper-input-decorator label='テンプレートモード' floatingLabel>
           <paper-autogrow-textarea>
@@ -100,11 +104,7 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
           <Label id="settingLabel"></Label>
         </div>
       </div>
-    </div>
-    <span id="for_result_card"></span>
-    <span id="for_template_card">
-      <paper-shadow z="1" class="card"/>
-      <paper-button raised toggle onclick='showTemplateMode()'>テンプレートモード</paper-button>
+      <paper-button raised toggle onclick='showTemplateMode()'>プリセット</paper-button>
       <span id="for_template_mode"></span>
     </span>
     
