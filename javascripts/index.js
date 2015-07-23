@@ -207,6 +207,9 @@ function nextJanken(gu, choki, pa){
 }
 
 function setPreset(values){
+  values = $.grep(values.split(','),function(d){
+    if(d != "") return d;
+  });
   for(var j=inputFormCount; j<values.length; j++){
     inputForm.innerHTML += '<div><paper-input id="input'+(j+1)+'" class="inputForm" label="候補'+(j+1)+'" floatingLabel></paper-input></div>';
     inputFormCount++;
@@ -245,27 +248,27 @@ function setTemplateForm(){
     for (var i = 0; i < templateValues.length; i++) {
       if( /poj/.test(templateValues[i])){ //prefectures of japan
         var prefectures = ["北海道","青森県","秋田県","岩手県","山形県","福島県","宮城県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"];
-        setPreset(prefectures);
+        setPreset(prefectures.join(','));
         break;
       }
       if( /course/.test(templateValues[i])) {
         var courses = ["情報システムコース","情報デザインコース","複雑系コース","知能システムコース"];
-        setPreset(courses);
+        setPreset(courses.join(','));
         break;
       }
       if( /we are rootbeer/.test(templateValues[i])) {
         var roobp = ["ichiren","uryu","ejo","kumar","kuromilk","KG","choco","MiZUP"];
-        setPreset(roobp);
+        setPreset(roobp.join(','));
         break;
       }
       if( /pizza/.test(templateValues[i]) ) {
 var pizzas = ["テンフォーミックス","フレッシュトマト","カントリー男爵（ショウユソース）","カントリー男爵（カレーソース）","エビデラックス","ジョイポップ","味わいサラミ","テリヤキハーブチキン","香味海鮮"];
-        setPreset(pizzas);
+        setPreset(pizzas.join(','));
         break;
       }
       if( /dom/.test(templateValues[i]) || /どｍ/.test(templateValues[i])) {
 var doms = ["村","工房","木こり","地下貯蔵庫","堀","市場","鉱山","民兵","改築","鍛冶屋","魔女","庭園","祝宴","役人","礼拝堂","議事堂","密偵","玉座の間","宰相","祝祭","冒険者","泥棒","書庫","研究所","金貸し"];
-        setPreset(doms);
+        setPreset(doms.join(','));
         break;
       }
       document.getElementById('input'+(i+1)).value = templateValues[i];
@@ -377,7 +380,7 @@ function showPresetList(){
     var keyContent = localStorage.key(i).split('_');
     if(keyContent[0] == 'ichirenshuffle'){
       var valueContents = localStorage.getItem(localStorage.key(i)).split('\n');
-      document.getElementById('for_preset_list').innerHTML += '<div id="presetKey">'+keyContent[1]+'<paper-button affirmative><core-icon icon="input" id = "setPresetButton" onclick="setPreset(\''+valueContents+'\');location=\'#inputCard\' "></core-icon></paper-button><paper-button affirmative autofocus autofocus id = "deletePresetButton" onclick="deletePreset(\''+localStorage.key(i)+'\')"><core-icon icon="clear"></core-icon></paper-button></div>';
+      document.getElementById('for_preset_list').innerHTML += '<div id="presetKey">'+keyContent[1]+'<paper-button affirmative><core-icon icon="input" id = "setPresetButton" onclick="setPreset(\''+valueContents.join(',')+'\');location=\'#inputCard\' "></core-icon></paper-button><paper-button affirmative autofocus autofocus id = "deletePresetButton" onclick="deletePreset(\''+localStorage.key(i)+'\')"><core-icon icon="clear"></core-icon></paper-button></div>';
       document.getElementById('for_preset_list').innerHTML += '<div>'+ valueContents + '</div>';
     }
   }
