@@ -271,6 +271,11 @@ var doms = ["村","工房","木こり","地下貯蔵庫","堀","市場","鉱山"
         setPreset(doms.join(','));
         break;
       }
+      if( /splatoon/.test(templateValues[i]) || /スプラトゥーン/.test(templateValues[i])) {
+        var splatoon = ["デカライン", "ハコフグ", "シオノメ", "アロワナ", "Bバス", "モンガラ", "ホッケ", "モズク", "タチウオ", "ネギトロ", "ヒラメが丘"];
+        setPreset(splatoon.join(','));
+        break;
+      }
       document.getElementById('input'+(i+1)).value = templateValues[i];
     }
   }
