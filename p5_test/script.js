@@ -187,14 +187,18 @@ function draw() {
     var numColors = [0, 0, 0, 0, 0, 0];
     for(var i=16; i>0; i--){ //2^16 = 65536
       var cmpNumText = String(Math.pow(2, i));
-      var search = dateText.indexOf(cmpNumText);
-    //   console.log(cmpNumText+":"+search+":"+dateText);
-      if(search >= 0){
-        for(var j=0; j<cmpNumText.length; j++){
-          if(numColors[j+search] == 0){
-            numColors[j+search] = i;
+      var cnt = 0;
+      while(dateText.length > cnt){
+        var search = dateText.indexOf(cmpNumText, cnt);
+      //   console.log(cmpNumText+":"+search+":"+dateText);
+        if(search >= 0){
+          for(var j=0; j<cmpNumText.length; j++){
+            if(numColors[j+search] == 0){
+              numColors[j+search] = i;
+            }
           }
         }
+        cnt += cmpNumText.length;
       }
     }
 
