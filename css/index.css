@@ -1,0 +1,40 @@
+#delete_button{
+  display: table-cell;
+  vertical-align: middle;
+  margin-top: 10px;
+}
+
+input[type=text]{
+  margin: 0px;
+}
+
+.row{
+  margin-bottom: 0px;
+}
+
+#add_button{
+  margin: 10px 0;
+}
+
+#janken_name_input{
+  margin-top: 0px;
+}
+
+#settlement_button{
+  margin-top: 10px;
+}
+
+.draw{
+  background-color: green;
+  color: white;
+}
+
+.win{
+  background-color: red;
+  color: white;
+}
+
+.lose{
+  background-color: blue;
+  color: white;
+}
