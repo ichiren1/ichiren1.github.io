@@ -6,6 +6,8 @@ function setDeleteButtonHeight(){
 }
 
 function clearNameInputArea(){
+  nameInputCnt = 2;
+  numInputCnt = 3;
   $('#name_input_area').html("");
   $('#name_input_area').append('<div class="row" id="name_input0"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="1"></div><div id="name_input_field" class="input-field col s7"><input id="name_input" type="text" class="validate name_input" tabindex="1"><label for="name_input"></label></div></div><div class="row" id="name_input1"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="2"></div><div id="name_input" class="input-field col s7"><input id="name_input" type="text" class="validate name_input" tabindex="2"><label for="name_input"></label></div></div>');
 }
@@ -30,6 +32,7 @@ function shuffle(){
       nums[nums.length] = $(this).val();
     }
   });
+  console.log(nums);
   if (names.length == 0){
     Materialize.toast('名前が未入力です', 2000);
   }else{
@@ -391,9 +394,7 @@ $(document).on("click", "#tweet_button", function(e){
 $(document).on("click", "#insert_preset", function(e){
   var value = $(e.target).parent().parent().children('#value_content').html();
   var title = $(e.target).parent().parent().parent().find('.title').html();
-  console.log(title);
   var values = value.split(/，|、| |,|　/);
-  console.log(values);
   var new_values = [];
   for(var i=0; i<values.length; i++){
     if(values[i].length !== 0){
