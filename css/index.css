@@ -38,3 +38,11 @@ input[type=text]{
   background-color: blue;
   color: white;
 }
+
+.edit_preset{
+  margin: 0 10px;
+}
+
+#body_container {
+  padding-bottom: 50px;
+}
