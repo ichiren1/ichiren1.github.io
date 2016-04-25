@@ -43,11 +43,65 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">useful shuffle</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <ul id="nav-mobile" class="right">
+        <li><a id="preset_insert_button" class="modal-trigger" href="#insert_modal"><i class="material-icons">playlist_play</i></a></li>
+        <li><a id="preset_add_button" class="modal-trigger" href="#add_modal"><i class="material-icons">playlist_add</i></a></li>
       </ul>
     </div>
   </nav>
-
+  <div id="add_modal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>プリセット追加</h4>
+      <div class="container">
+        <div class="row" id="preset_add_area">
+          <div id="preset_input_field" class="input-field col s2">
+            <input id="preset_name" type="text" class="validate num_input">
+            <label for="name_input">保存名</label>
+          </div>
+          <div id="preset_input_field" class="input-field col s8">
+            <input id="preset_content" type="text" class="validate" placeholder="名前, 名前, 名前...">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a id="add_modal_button" href="#!" class="waves-effect waves-green btn-flat">追加</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">閉じる</a>
+    </div>
+  </div>
+  <div id="insert_modal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>プリセット挿入</h4>
+      <div class="container">
+        <ul id="preset_area" class="collection">
+        </ul>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">キャンセル</a>
+    </div>
+  </div>
+  
+  <div id="edit_modal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>プリセット編集</h4>
+      <div class="container">
+        <div class="row" id="preset_add_area">
+          <div id="preset_input_field" class="input-field col s2">
+            <input id="edit_preset_name" type="text" class="validate num_input">
+          </div>
+          <div id="preset_input_field" class="input-field col s8">
+            <input id="edit_preset_content" type="text" class="validate" placeholder="名前, 名前, 名前...">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="save_editing_preset">保存</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">キャンセル</a>
+    </div>
+  </div>
+  
   <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large red">
       <i class="large mdi-navigation-menu material-icons">shuffle</i>
@@ -59,7 +113,7 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
     </ul>
   </div>
   
-  <div class="container">
+  <div class="container" id="body_container">
     <div class="row">
       <div class="col s12">
         <div class="card">
@@ -98,7 +152,7 @@ href="stylesheets/smart.css" type="text/css" rel="stylesheet" />
       <div class="col s12">
         <div class="card">
             <div class="card-content">
-              <span class="card-title">結果</span>
+              <span class="card-title" id="result_card_title">結果</span>
               <div class="container">
                 <div id="shuffle_area">
                   <div id="result_name_input_area">
