@@ -129,30 +129,30 @@ function janken(){
   $(hands).each(function(){
     var result_label = "";
     if((gu+choki+pa) % 2 == 1 ){
-      result_label = '<div class="input-field col s2 janken_result_label draw">引き分け</div>';
+      result_label = '<div class="input-field col s2 janken_result_label draw">draw</div>';
     }else{
       if(hands[i] == "wb_cloudy"){ //gu
         if(pa == 1){
-          result_label = '<div class="input-field col s2 janken_result_label lose">負け</div>';
+          result_label = '<div class="input-field col s2 janken_result_label lose">lose</div>';
         }
         if(choki == 1){
-          result_label = '<div class="input-field col s2 janken_result_label win">勝ち</div>';
+          result_label = '<div class="input-field col s2 janken_result_label win">win</div>';
         }
       }else
       if(hands[i] == "content_cut"){ //chokis
         if(gu == 1){
-          result_label = '<div class="input-field col s2 janken_result_label lose">負け</div>';
+          result_label = '<div class="input-field col s2 janken_result_label lose">lose</div>';
         }
         if(pa == 1){
-          result_label = '<div class="input-field col s2 janken_result_label win">勝ち</div>';
+          result_label = '<div class="input-field col s2 janken_result_label win">win</div>';
         }
       }else
       if(hands[i] == "send"){ //pa
         if(choki == 1){
-          result_label = '<div class="input-field col s2 janken_result_label lose">負け</div>';
+          result_label = '<div class="input-field col s2 janken_result_label lose">lose</div>';
         }
         if(gu == 1){
-          result_label = '<div class="input-field col s2 janken_result_label win">勝ち</div>';
+          result_label = '<div class="input-field col s2 janken_result_label win">win</div>';
         }
       }
     }
@@ -217,26 +217,26 @@ function settlement(){
     var result_label = "";
     if(hands[i] == "wb_cloudy"){ //gu
       if(pa == 1){
-        result_label = '<div class="input-field col s2 janken_result_label lose">負け</div>';
+        result_label = '<div class="input-field col s2 janken_result_label lose">lose</div>';
       }
       if(choki == 1){
-        result_label = '<div class="input-field col s2 janken_result_label win">勝ち</div>';
+        result_label = '<div class="input-field col s2 janken_result_label win">win</div>';
       }
     }else
     if(hands[i] == "content_cut"){ //chokis
       if(gu == 1){
-        result_label = '<div class="input-field col s2 janken_result_label lose">負け</div>';
+        result_label = '<div class="input-field col s2 janken_result_label lose">lose</div>';
       }
       if(pa == 1){
-        result_label = '<div class="input-field col s2 janken_result_label win">勝ち</div>';
+        result_label = '<div class="input-field col s2 janken_result_label win">win</div>';
       }
     }else
     if(hands[i] == "send"){ //pa
       if(choki == 1){
-        result_label = '<div class="input-field col s2 janken_result_label lose">負け</div>';
+        result_label = '<div class="input-field col s2 janken_result_label lose">lose</div>';
       }
       if(gu == 1){
-        result_label = '<div class="input-field col s2 janken_result_label win">勝ち</div>';
+        result_label = '<div class="input-field col s2 janken_result_label win">win</div>';
       }
     }
     
@@ -267,12 +267,7 @@ function loadPreset(){
 }
 
 function addTweetButton(shuffle_mode){
-  var twitter_link = "http://twitter.com/?status=";
-  if(_ua.Mobile || _ua.Tablet){
-    twitter_link = "http://twtr.jp/status/create/?text=";
-  }
   var out = "";
-  var suffix = "http://ichiren1.github.io";
   if(shuffle_mode == 'shuffle'){
     var nums = [];
     var names = [];
@@ -326,7 +321,16 @@ function addTweetButton(shuffle_mode){
     }
   }
   $('#result_card_title').html("");
-  $('#result_card_title').append('結果<a class="right waves-effect" id="tweet_button" href="'+twitter_link+out+suffix+'" target="_blank"><img src="image/Twitter_logo_blue.png" width="30px"></img></a>');
+  $('#result_card_title').append('結果<div class="right" id="tweet_button"></div>');
+//                                 <a class="right waves-effect" id="tweet_button" href="'+twitter_link+out+suffix+'" target="_blank"><img src="image/Twitter_logo_blue.png" width="30px"></img></a>');
+  twttr.widgets.createShareButton(
+    "http://ichiren1.github.io",
+    document.getElementById('tweet_button'),
+    {
+      text: out,
+      dnt: true
+    }
+  );
 }
 
 $(document).on("click", "#add_button", function(e){
