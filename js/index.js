@@ -1,5 +1,22 @@
 var nameInputCnt = 2;
 var numInputCnt = 3;
+var _ua = (function(u){
+  return {
+    Tablet:(u.indexOf("windows") != -1 && u.indexOf("touch") != -1 && u.indexOf("tablet pc") == -1) 
+      || u.indexOf("ipad") != -1
+      || (u.indexOf("android") != -1 && u.indexOf("mobile") == -1)
+      || (u.indexOf("firefox") != -1 && u.indexOf("tablet") != -1)
+      || u.indexOf("kindle") != -1
+      || u.indexOf("silk") != -1
+      || u.indexOf("playbook") != -1,
+    Mobile:(u.indexOf("windows") != -1 && u.indexOf("phone") != -1)
+      || u.indexOf("iphone") != -1
+      || u.indexOf("ipod") != -1
+      || (u.indexOf("android") != -1 && u.indexOf("mobile") != -1)
+      || (u.indexOf("firefox") != -1 && u.indexOf("mobile") != -1)
+      || u.indexOf("blackberry") != -1
+  }
+})(window.navigator.userAgent.toLowerCase());
 
 function setDeleteButtonHeight(){
   $('.delete_button').height($('.input_fields').height());
@@ -7,11 +24,11 @@ function setDeleteButtonHeight(){
 
 function clearNameInputArea(){
   $('#name_input_area').html("");
-  $('#name_input_area').append('<div class="row" id="name_input0"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="1"></div><div id="name_input_field" class="input-field col s8"><input id="name_input" type="text" class="validate name_input" tabindex="1"><label for="name_input"></label></div></div><div class="row" id="name_input1"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="2"></div><div id="name_input" class="input-field col s8"><input id="name_input" type="text" class="validate name_input" tabindex="2"><label for="name_input"></label></div></div>');
+  $('#name_input_area').append('<div class="row" id="name_input0"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="1"></div><div id="name_input_field" class="input-field col s7"><input id="name_input" type="text" class="validate name_input" tabindex="1"><label for="name_input"></label></div></div><div class="row" id="name_input1"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="2"></div><div id="name_input" class="input-field col s7"><input id="name_input" type="text" class="validate name_input" tabindex="2"><label for="name_input"></label></div></div>');
 }
 
 function addNameInput(){
-  $('#name_input_area').append('<div class="row input_fields" id="name_input_field'+nameInputCnt+'"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="'+numInputCnt+'"></div><div id="name_input" class="input-field col s8"><input id="name_input" type="text" class="validate name_input" tabindex="'+numInputCnt+'"><label for="name_input"></label></div><a id="delete_button" class="waves-effect waves-teal btn-flat delete_button s2"><i class="material-icons">delete</i></a></div>');
+  $('#name_input_area').append('<div class="row input_fields" id="name_input_field'+nameInputCnt+'"><div id="name_input_field" class="input-field col s2"><input id="num_input" type="text" class="validate num_input" value="'+numInputCnt+'"></div><div id="name_input" class="input-field col s7"><input id="name_input" type="text" class="validate name_input" tabindex="'+numInputCnt+'"><label for="name_input"></label></div><a id="delete_button" class="waves-effect waves-teal btn-flat delete_button s2"><i class="material-icons">delete</i></a></div>');
   setDeleteButtonHeight();
   nameInputCnt += 1;
   numInputCnt += 1;
@@ -31,9 +48,9 @@ function shuffle(){
     }
   });
   if (names.length == 0){
-    Materialize.toast('名前が未入力です', 4000);
+    Materialize.toast('名前が未入力です', 2000);
   }else{
-    Materialize.toast('シャッフルしました', 4000);
+    Materialize.toast('シャッフルしました', 2000);
   }
   var n = names.length, t, i;
   while(n){
@@ -45,10 +62,11 @@ function shuffle(){
   i = 0;
   $('#result_name_input_area').html("");
   $(names).each(function(){
-    $('#result_name_input_area').append('<div class="row result_input_fields" id="result_name_input_field'+i+'"><div id="name_input_field" class="input-field col s2"><input readonly id="num_input" type="text" class="validate result_num_input" value="'+nums[i]+'"></div><div id="result_name_input" class="input-field col s8"><input readonly id="result_name_input" type="text" class="validate result_name_input" value="'+names[i++]+'"></div></div>');
+    $('#result_name_input_area').append('<div class="row result_input_fields" id="result_name_input_field'+i+'"><div id="name_input_field" class="input-field col s2"><input readonly id="num_input" type="text" class="validate result_num_input" value="'+nums[i]+'"></div><div id="result_name_input" class="input-field col s7"><input readonly id="result_name_input" type="text" class="validate result_name_input" value="'+names[i++]+'"></div></div>');
   });
   if(names.length > 1){
     addTweetButton('shuffle');
+    $('#result_anker').trigger("click");
   }
 }
 
@@ -61,9 +79,9 @@ function chooseone(){
   });
   $('#result_name_input_area').html("");
   if (names.length == 0){
-    Materialize.toast('名前が未入力です', 4000);
+    Materialize.toast('名前が未入力です', 2000);
   }else{
-    Materialize.toast('1つだけ選びました', 4000);
+    Materialize.toast('1つだけ選びました', 2000);
   }
   var n = names.length;
   if(n > 0){
@@ -84,9 +102,9 @@ function janken(){
   var i = 0;
   $('#result_name_input_area').html("");
   if (names.length == 0){
-    Materialize.toast('名前が未入力です', 4000);
+    Materialize.toast('名前が未入力です', 2000);
   }else{
-    Materialize.toast('じゃんけんポン', 4000);
+    Materialize.toast('じゃんけんポン', 2000);
   }
   var hands = [];
   var gu = 0;
@@ -138,7 +156,7 @@ function janken(){
         }
       }
     }
-    $('#result_name_input_area').append('<div class="row result_input_fields" id="janken_field"><div id="name_input_field" class="input-field col s2"><i class="material-icons janken_hand">'+hands[i]+'</i></div><div id="janken_name_input" class="input-field col s8"><input readonly id="result_name" type="text" class="validate result_name_input" value="'+names[i++]+'"></div>'+result_label+'</div>');
+    $('#result_name_input_area').append('<div class="row result_input_fields" id="janken_field"><div id="name_input_field" class="input-field col s2"><i class="material-icons janken_hand">'+hands[i]+'</i></div><div id="janken_name_input" class="input-field col s7"><input readonly id="result_name" type="text" class="validate result_name_input" value="'+names[i++]+'"></div>'+result_label+'</div>');
   });
   if((gu+choki+pa) % 2 == 1 ){
     $('#result_name_input_area').append('<div class="row"><a id="settlement_button" class="waves-effect waves-teal btn s2">決着をつける</a></div>');
@@ -162,7 +180,7 @@ function settlement(){
   var i = 0;
   $('#result_name_input_area').html("");
   if (names.length == 0){
-    Materialize.toast('名前が未入力です', 4000)
+    Materialize.toast('名前が未入力です', 2000)
   }
   var hands = [];
   var gu = 0;
@@ -222,10 +240,10 @@ function settlement(){
       }
     }
     
-    $('#result_name_input_area').append('<div class="row result_input_fields" id="janken_field"><div id="name_input_field" class="input-field col s2"><i class="material-icons janken_hand">'+hands[i]+'</i></div><div id="janken_name_input" class="input-field col s8"><input readonly id="result_name" type="text" class="validate result_name_input" value="'+names[i++]+'"></div>'+result_label+'</div>');
+    $('#result_name_input_area').append('<div class="row result_input_fields" id="janken_field"><div id="name_input_field" class="input-field col s2"><i class="material-icons janken_hand">'+hands[i]+'</i></div><div id="janken_name_input" class="input-field col s7"><input readonly id="result_name" type="text" class="validate result_name_input" value="'+names[i++]+'"></div>'+result_label+'</div>');
     
   });
-  Materialize.toast(aiko_cnt+"回の死闘の末、決着しました", 4000);
+  Materialize.toast(aiko_cnt+"回の死闘の末、決着しました", 2000);
   addTweetButton('janken');
   $('.janken_result_label').each(function(){
     $(this).css('margin-top', $('#name_input_field').css('margin-top'));
@@ -250,6 +268,9 @@ function loadPreset(){
 
 function addTweetButton(shuffle_mode){
   var twitter_link = "http://twitter.com/?status=";
+  if(_ua.Mobile || _ua.Tablet){
+    twitter_link = "http://twtr.jp/status/create/?text=";
+  }
   var out = "";
   var suffix = "http://ichiren1.github.io";
   if(shuffle_mode == 'shuffle'){
@@ -340,7 +361,7 @@ $(document).on("click", "#add_modal_button", function(e){
   if($('#preset_name').val().length > 0){
     window.localStorage.setItem("ichirenshuffle_"+$('#preset_name').val(), $('#preset_content').val());
     $('#add_modal').closeModal();
-    Materialize.toast($('#preset_name').val()+ ' 追加しました', 4000);
+    Materialize.toast($('#preset_name').val()+ ' 追加しました', 2000);
   }else{
     Materialize.toast('保存名が未入力です', 1000);
   }
@@ -358,14 +379,14 @@ $(document).on("click", "#save_editing_preset", function(e){
   var title = $(e.target).parent().parent().children().find('#edit_preset_name').val();
   var content = $(e.target).parent().parent().children().find('#edit_preset_content').val();
   window.localStorage.setItem('ichirenshuffle_'+title, content);
-  Materialize.toast("'"+ title +"' 保存しました", 4000);
+  Materialize.toast("'"+ title +"' 保存しました", 2000);
 });
 
 $(document).on("click", "#delete_preset", function(e){
   $('#insert_modal').closeModal();
   var title = $(e.target).parent().parent().parent().children('.title').html();
   localStorage.removeItem("ichirenshuffle_"+title);
-  Materialize.toast("'"+title+"' 削除しました", 4000);
+  Materialize.toast("'"+title+"' 削除しました", 2000);
 });
 $(document).on("click", "#edit_preset", function(e){
   var title = $(e.target).parent().parent().parent().children('.title').html();
@@ -402,7 +423,7 @@ $(document).on("click", "#insert_preset", function(e){
     i++;
   });
   $('#insert_modal').closeModal();
-  Materialize.toast("'"+title+"' を追加しました", 4000);
+  Materialize.toast("'"+title+"' を追加しました", 2000);
 });
 
 $(document).on("keyup", function(e){
@@ -412,4 +433,12 @@ $(document).on("keyup", function(e){
   if(e.keyCode == 65){ //A
     addNameInput();
   }
+});
+
+$(document).on("click", "#result_anker", function(e){
+    var speed = 500; //移動完了までの時間(sec)を指定
+    var target = $('#result_card');
+    var position = target.offset().top;
+    $("html, body").animate({scrollTop:position}, speed, "swing");
+    return false;
 });
