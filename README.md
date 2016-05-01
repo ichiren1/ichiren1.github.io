@@ -4,4 +4,4 @@ ichiren1.github.io
 * [ichiren1.github.io](http://ichiren1.github.io)  
 
 ##使い方
-* [いちれんシャッフルを使う - Qiita](http://qiita.com/ichiren1/items/f4525e531fa06ae84cd4)
+* https://github.com/ichiren1/ichiren1.github.io/wiki/使い方
