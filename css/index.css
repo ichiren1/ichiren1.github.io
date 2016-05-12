@@ -5,6 +5,10 @@
   padding: 0 10px;
 }
 
+#how_to_use{
+  margin: 10px 0;
+}
+
 input[type=text]{
   margin: 0px;
 }
